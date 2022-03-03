@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sinyu.Energy.portal.mapper.CallPoliceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.sinyu.Energy.portal.model.CallPolice">
+        <id column="event" property="event" />
+        <result column="ID" property="id" />
+        <result column="adr" property="adr" />
+        <result column="attribute" property="attribute" />
+        <result column="classified" property="classified" />
+        <result column="hy_indicators" property="hyIndicators" />
+        <result column="kh_indicators" property="khIndicators" />
+        <result column="ss_indicators" property="ssIndicators" />
+        <result column="time" property="time" />
+        <result column="date" property="date" />
+        <result column="year" property="year" />
+    </resultMap>
+
+</mapper>

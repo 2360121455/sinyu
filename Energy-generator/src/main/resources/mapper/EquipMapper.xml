@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sinyu.Energy.portal.mapper.EquipMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.sinyu.Energy.portal.model.Equip">
+        <id column="equip_code" property="equipCode" />
+        <result column="ID" property="id" />
+        <result column="equip_name" property="equipName" />
+        <result column="num" property="num" />
+        <result column="power" property="power" />
+        <result column="department" property="department" />
+        <result column="buy_date" property="buyDate" />
+        <result column="tyoe" property="tyoe" />
+        <result column="adr" property="adr" />
+        <result column="measure" property="measure" />
+        <result column="note" property="note" />
+    </resultMap>
+
+</mapper>

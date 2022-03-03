@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sinyu.Energy.portal.mapper.MenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.sinyu.Energy.portal.model.Menu">
+        <id column="menu_code" property="menuCode" />
+        <result column="ID" property="id" />
+        <result column="menu_name" property="menuName" />
+        <result column="menu_level" property="menuLevel" />
+    </resultMap>
+
+</mapper>
