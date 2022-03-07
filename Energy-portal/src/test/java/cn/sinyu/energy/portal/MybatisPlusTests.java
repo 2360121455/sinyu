@@ -2,10 +2,13 @@ package cn.sinyu.energy.portal;
 
 import cn.sinyu.energy.portal.mapper.UserlistMapper;
 import cn.sinyu.energy.portal.model.Userlist;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 @Slf4j
@@ -32,16 +35,15 @@ public class MybatisPlusTests {
     void update(){
         Userlist user = new Userlist();
         user.setUserCode("1");
-        user.setUserName("黑瞎子");
+        user.setUserName("黑熊精");
         ulmapper.updateById(user);
     }
 
     @Test
     void select(){
-//        QueryWrapper<Userlist> qw = new QueryWrapper<>();
-//        qw.eq("user_name","黑瞎子");
-//        List<Userlist> ul = ulmapper.selectList(qw);
-        Userlist ul = ulmapper.selectById(5);
+        QueryWrapper<Userlist> qw = new QueryWrapper<>();
+        qw.eq("user_name","黑瞎子");
+        List<Userlist> ul = ulmapper.selectList(qw);
         System.out.println(ul);
     }
 }

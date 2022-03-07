@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author zcd
- * @since 2022-02-07
+ * @since 2022-03-03
  */
 @RestController
 @RequestMapping("/portal/equip")

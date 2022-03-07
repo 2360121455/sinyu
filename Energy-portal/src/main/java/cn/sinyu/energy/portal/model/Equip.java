@@ -1,13 +1,12 @@
 package cn.sinyu.energy.portal.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.time.LocalDate;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
-import java.time.LocalDate;
 
 /**
  * <p>
@@ -15,7 +14,7 @@ import java.time.LocalDate;
  * </p>
  *
  * @author zcd
- * @since 2022-02-07
+ * @since 2022-03-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

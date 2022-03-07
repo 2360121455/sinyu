@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * </p>
  *
  * @author zcd
- * @since 2022-02-07
+ * @since 2022-03-03
  */
 @Repository
 public interface CallPoliceMapper extends BaseMapper<CallPolice> {
