@@ -20,7 +20,10 @@ public class MybatisPlusTests {
     @Test
     void insert(){
         Userlist user = new Userlist();
-        user.setUserCode("1");
+        user.setUserCode("07b0da63-0849-4b26-88d9-1e34e6a4145c");
+        user.setUserName("大老黑");
+        user.setAccount("2360121455");
+        user.setPassword("123456789");
         int rows = ulmapper.insert(user);
         log.debug("rows = "+rows);
     }
