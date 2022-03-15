@@ -8,4 +8,12 @@ import java.io.Serializable;
 public class R implements Serializable {
     private Integer state;
     private String message;
+
+    public R() {
+    }
+
+    public R(Integer state, String message) {
+        this.state = state;
+        this.message = message;
+    }
 }

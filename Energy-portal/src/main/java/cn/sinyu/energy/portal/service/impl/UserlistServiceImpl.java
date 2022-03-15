@@ -69,6 +69,7 @@ public class UserlistServiceImpl extends ServiceImpl<UserlistMapper, Userlist> i
         //将补全后的Userlist对象插入数据库中,返回受影响行数
         int rows = ulmapper.insert(user);
         if (rows != 1){
+            //抛出插入数据异常
             throw new InsertException();
         }
     }
