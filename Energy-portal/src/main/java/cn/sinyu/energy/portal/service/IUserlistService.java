@@ -1,5 +1,6 @@
 package cn.sinyu.energy.portal.service;
 
+import cn.sinyu.energy.portal.dto.UserlistLoginDTO;
 import cn.sinyu.energy.portal.dto.UserlistRegisterDTO;
 import cn.sinyu.energy.portal.model.Userlist;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -15,4 +16,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IUserlistService extends IService<Userlist> {
     //注册
     void Register(UserlistRegisterDTO userlistRegisterDTO);
+    //登录
+    void Login(UserlistLoginDTO userlistLoginDTO);
 }

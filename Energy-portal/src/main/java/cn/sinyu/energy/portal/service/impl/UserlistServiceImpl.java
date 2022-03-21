@@ -1,9 +1,8 @@
 package cn.sinyu.energy.portal.service.impl;
 
+import cn.sinyu.energy.portal.dto.UserlistLoginDTO;
 import cn.sinyu.energy.portal.dto.UserlistRegisterDTO;
-import cn.sinyu.energy.portal.ex.AccountDuplicateException;
-import cn.sinyu.energy.portal.ex.InsertException;
-import cn.sinyu.energy.portal.ex.UsernameDuplicateException;
+import cn.sinyu.energy.portal.ex.*;
 import cn.sinyu.energy.portal.mapper.UserlistMapper;
 import cn.sinyu.energy.portal.model.Userlist;
 import cn.sinyu.energy.portal.service.IUserlistService;
@@ -31,12 +30,11 @@ public class UserlistServiceImpl extends ServiceImpl<UserlistMapper, Userlist> i
     UserlistMapper ulmapper;
 
     /**
-     * 注册实现类
-     * @param userlistRegisterDTO 用户传输参数封装类
+     * 实现注册
+     * @param userlistRegisterDTO
      */
     @Override
     public void Register(UserlistRegisterDTO userlistRegisterDTO){
-
         //根据客户端输入的用户名查询用户
         QueryWrapper<Userlist> qw = new QueryWrapper<>();
         qw.eq("user_name",userlistRegisterDTO.getUsername());
@@ -44,9 +42,8 @@ public class UserlistServiceImpl extends ServiceImpl<UserlistMapper, Userlist> i
         //判断查询结果是否为null
         if (!ulList.isEmpty()){
             //抛出用户名重复异常
-            throw new UsernameDuplicateException();
+            throw new UsernameDuplicateException("注册失败，用户名已经存在！");
         }
-
         //根据客户端输入的账号查询用户
         QueryWrapper<Userlist> qwa = new QueryWrapper<>();
         qwa.eq("account",userlistRegisterDTO.getAccount());
@@ -54,13 +51,11 @@ public class UserlistServiceImpl extends ServiceImpl<UserlistMapper, Userlist> i
         //判断查询结果是否为null
         if (!ulaList.isEmpty()){
             //抛出账户重复异常
-            throw new AccountDuplicateException();
+            throw new AccountDuplicateException("注册失败，账号已经存在");
         }
-
         //创建UserList对象
         Userlist user = new Userlist();
         //补全UserList对象的属性值
-
         user.setUserName(userlistRegisterDTO.getUsername());
         user.setAccount(userlistRegisterDTO.getAccount());
         //对密码进行md5加密
@@ -70,7 +65,32 @@ public class UserlistServiceImpl extends ServiceImpl<UserlistMapper, Userlist> i
         int rows = ulmapper.insert(user);
         if (rows != 1){
             //抛出插入数据异常
-            throw new InsertException();
+            throw new InsertException("注册失败，服务器忙，请稍后重试！");
+        }
+    }
+
+    /**
+     * 登录实现
+     * @param userlistLoginDTO
+     */
+    @Override
+    public void Login(UserlistLoginDTO userlistLoginDTO){
+        //根据客户端输入的账号查询用户
+        QueryWrapper<Userlist> qw = new QueryWrapper<>();
+        qw.eq("account",userlistLoginDTO.getAccount());
+        List<Userlist> ulList = ulmapper.selectList(qw);
+        //判断查询结果是否为null
+        if (ulList.isEmpty()){
+            //抛出账号不存在异常
+            throw new AccountInexistenceException();
+        }
+        for (Userlist u:ulList) {
+            //查询密码是否正确
+            String Md5PasswordDTO = PasswordUtils.encode(userlistLoginDTO.getPassword());
+            if (!u.getPassword().equals(Md5PasswordDTO)){
+                //抛出密码错误异常
+                throw new WrongPasswordException();
+            }
         }
     }
 }

@@ -95,13 +95,11 @@
                 <version>${mybatis-plus.version}</version>
             </dependency>
 
-            <!-- spring-boot-starter-freemarker代码生成器辅助 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-freemarker</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
-
 
         </dependencies>
     </dependencyManagement>
