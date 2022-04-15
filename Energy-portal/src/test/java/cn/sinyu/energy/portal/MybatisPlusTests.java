@@ -1,7 +1,12 @@
 package cn.sinyu.energy.portal;
 
+import cn.sinyu.energy.portal.VO.UserLoginVO;
+import cn.sinyu.energy.portal.mapper.MenuMapper;
 import cn.sinyu.energy.portal.mapper.UserlistMapper;
+import cn.sinyu.energy.portal.model.Menu;
 import cn.sinyu.energy.portal.model.Userlist;
+import cn.sinyu.energy.portal.service.impl.UserlistServiceImpl;
+import cn.sinyu.energy.portal.util.PasswordUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -9,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootTest
 @Slf4j
@@ -16,14 +22,19 @@ public class MybatisPlusTests {
 
     @Autowired
     UserlistMapper ulmapper;
+    @Autowired
+    UserlistServiceImpl userService;
+    @Autowired
+    MenuMapper menuMapper;
 
     @Test
     void insert(){
         Userlist user = new Userlist();
-        user.setUserCode("07b0da63-0849-4b26-88d9-1e34e6a4145c");
+        user.setUserCode(UUID.randomUUID().toString());
         user.setUserName("大老黑");
         user.setAccount("2360121455");
-        user.setPassword("123456789");
+        user.setPassword(PasswordUtils.encode("123456789"));
+        user.setRoleCode("0");
         int rows = ulmapper.insert(user);
         log.debug("rows = "+rows);
     }
@@ -44,9 +55,15 @@ public class MybatisPlusTests {
 
     @Test
     void select(){
-        QueryWrapper<Userlist> qw = new QueryWrapper<>();
-        qw.eq("user_name","黑瞎子");
-        List<Userlist> ul = ulmapper.selectList(qw);
-        System.out.println(ul);
+        QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
+        List<Menu> menuList = menuMapper.selectList(queryWrapper);
+        System.out.println(menuList);
+    }
+
+    @Test
+    void a(){
+        String account = "2360121455";
+        UserLoginVO userLoginVO = userService.Login(account);
+        System.out.println(userLoginVO);
     }
 }

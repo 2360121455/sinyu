@@ -7,12 +7,17 @@ import java.io.Serializable;
 
 @Data
 @Accessors(chain = true)//链式
-public class R implements Serializable {
+public class R<T> implements Serializable {
     private Integer state;
     private String message;
+    private T data;
 
     public static R ok(){
         return new R().setState(State.OK);
+    }
+
+    public static <T> R<T> ok(T data){
+        return R.ok().setData(data);
     }
 
     public static R failure(Integer state,String message){
@@ -34,6 +39,8 @@ public class R implements Serializable {
         Integer ERR_INSERT = 4020;
         //验证异常
         Integer ERR_INVALID_PARAMETER = 4030;
+        //两次密码不一致
+        Integer ERR_DONT_AGREE = 4040;
     }
 
 }

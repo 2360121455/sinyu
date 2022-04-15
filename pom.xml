@@ -33,13 +33,19 @@
                 <version>${spring-boot.version}</version>
             </dependency>
 
+            <!-- spring security登录验证框架 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
             <!-- Spring Validation 验证请求参数格式的框架  -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-validation</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
-
 
             <!-- lombok -->
             <dependency>

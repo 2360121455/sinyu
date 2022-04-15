@@ -25,6 +25,8 @@
 <![endif]-->
 		<!--/meta 作为公共模版分离出去-->
 		<title>能源数据采集与管控平台 - iEms-onLine V3.0</title>
+		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/vue.js"></script>
 		<meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 		<meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 	</head>
@@ -89,144 +91,144 @@
 		<!--/_header 作为公共模版分离出去-->
 
 		<!--_menu 作为公共模版分离出去-->
-		<aside class="Hui-aside">
-			<div class="menu_dropdown bk_2">
-				<dl id="menu-article">
-					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe616;</i> 能耗数据采集<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-					<dd>
-						<ul>
-							<li>
-								<a href="product-list1_1.html" title="电">电</a>
-							</li>
-							<li>
-								<a href="product-list1_2.html" title="水">水</a>
-							</li>
-							<li>
-								<a href="product-list1_3.html" title="燃气">燃气</a>
-							</li>
-							<li>
-								<a href="product-list1_4.html" title="终端录入">终端录入</a>
-							</li>
-							<li>
-								<a href="product-list1_5.html" title="第三方接口">第三方接口</a>
-							</li>
-						</ul>
-					</dd>
-				</dl>
-				<dl id="menu-picture">
-					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe613;</i> 报警功能模块<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-					<dd>
-						<ul>
-							<li>
-								<a href="product-list2_1.html" title="能源计量设备报警">能源计量设备报警</a>
-							</li>
-							<li>
-								<a href="product-list2_2.html" title="能耗预警">能耗预警</a>
-							</li>
-						</ul>
-					</dd>
-				</dl>
-				<dl id="menu-product">
-					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe620;</i> 能源数据分析<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-					<dd>
-						<ul>
-							<li>
-								<a href="product-list3_1.html" title="能耗平衡分析">能耗平衡分析</a>
-							</li>
-							<li>
-								<a href="product-list3_2.html" title="能效诊断">能效诊断</a>
-							</li>
-							<li>
-								<a href="product-list3_3.html" title="数据报表">数据报表</a>
-							</li>
-						</ul>
-					</dd>
-				</dl>
-				<dl id="menu-comments">
-					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe622;</i> 能耗管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-					<dd>
-						<ul>
-							<li>
-								<a href="product-list4_1.html" title="内部对标">内部对标</a>
-							</li>
-							<li>
-								<a href="product-list4_2.html" title="行业对标">行业对标</a>
-							</li>
-							<li>
-								<a href="product-list4_3.html" title="班组考核">班组考核</a>
-							</li>
-						</ul>
-					</dd>
-				</dl>
-				<dl id="menu-member">
-					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe60d;</i> 设备管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-					<dd>
-						<ul>
-							<li>
-								<a href="product-list5_1.html" title="耗能设备">耗能设备</a>
-							</li>
-							<li>
-								<a href="product-list5_2.html" title="能源计量设备">能源计量设备</a>
-							</li>
-							<li>
-								<a href="product-list5_3.html" title="电业局电能表抄表">电业局电能表抄表</a>
-							</li>
-							<li>
-								<a href="product-list5_4.html" title="自来水公司水表抄表">自来水公司水表抄表</a>
-							</li>
-						</ul>
-					</dd>
-				</dl>
-				<dl id="menu-admin">
-					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe62d;</i> 手机管理终端<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-					<dd>
-						<ul>
-							<li>
-								<a href="product-list6_1.html" title="手机录入管理">手机录入管理</a>
-							</li>
-							<li>
-								<a href="product-list6_2.html" title="消息推送">消息推送</a>
-							</li>
-						</ul>
-					</dd>
-				</dl>
-				<dl id="menu-tongji">
-					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe61a;</i> 节能控制（定制）<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-					<dd>
-						<ul>
-							<li>
-								<a href="product-list7_1.html" title="设备运行指导">设备运行指导</a>
-							</li>
-							<li>
-								<a href="product-list7_2.html" title="供热运行指导">供热运行指导</a>
-							</li>
-						</ul>
-					</dd>
-				</dl>
-				<dl id="menu-system">
-					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe62e;</i> 系统设置<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-					<dd>
-						<ul>
-							<li>
-								<a href="system-base.html" title="部门信息维护">部门信息维护</a>
-							</li>
-							<li>
-								<a href="system-base1.html" title="人员信息维护">人员信息维护</a>
-							</li>
-							<li>
-								<a href="system-base2.html" title="角色信息维护">角色信息维护</a>
-							</li>
-							<li>
-								<a href="system-base3.html" title="修改密码">修改密码</a>
-							</li>
-						</ul>
-					</dd>
-				</dl>
-			</div>
-		</aside>
-		<div class="dislpayArrow hidden-xs">
-			<a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a>
-		</div>
+<!--		<aside class="Hui-aside">-->
+<!--			<div id="menusApp" class="menu_dropdown bk_2">-->
+<!--				<dl id="menu-article">-->
+<!--					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe616;</i> 能耗数据采集<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>-->
+<!--					<dd>-->
+<!--						<ul>-->
+<!--							<li>-->
+<!--								<a v-for="menu in menus" href="product-list1_1.html" title="电"><small v-text="menu.name">电</small></a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list1_2.html" title="水">水</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list1_3.html" title="燃气">燃气</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list1_4.html" title="终端录入">终端录入</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list1_5.html" title="第三方接口">第三方接口</a>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!--					</dd>-->
+<!--				</dl>-->
+<!--				<dl id="menu-picture">-->
+<!--					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe613;</i> 报警功能模块<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>-->
+<!--					<dd>-->
+<!--						<ul>-->
+<!--							<li>-->
+<!--								<a href="product-list2_1.html" title="能源计量设备报警">能源计量设备报警</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list2_2.html" title="能耗预警">能耗预警</a>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!--					</dd>-->
+<!--				</dl>-->
+<!--				<dl id="menu-product">-->
+<!--					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe620;</i> 能源数据分析<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>-->
+<!--					<dd>-->
+<!--						<ul>-->
+<!--							<li>-->
+<!--								<a href="product-list3_1.html" title="能耗平衡分析">能耗平衡分析</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list3_2.html" title="能效诊断">能效诊断</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list3_3.html" title="数据报表">数据报表</a>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!--					</dd>-->
+<!--				</dl>-->
+<!--				<dl id="menu-comments">-->
+<!--					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe622;</i> 能耗管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>-->
+<!--					<dd>-->
+<!--						<ul>-->
+<!--							<li>-->
+<!--								<a href="product-list4_1.html" title="内部对标">内部对标</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list4_2.html" title="行业对标">行业对标</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list4_3.html" title="班组考核">班组考核</a>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!--					</dd>-->
+<!--				</dl>-->
+<!--				<dl id="menu-member">-->
+<!--					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe60d;</i> 设备管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>-->
+<!--					<dd>-->
+<!--						<ul>-->
+<!--							<li>-->
+<!--								<a href="product-list5_1.html" title="耗能设备">耗能设备</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list5_2.html" title="能源计量设备">能源计量设备</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list5_3.html" title="电业局电能表抄表">电业局电能表抄表</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list5_4.html" title="自来水公司水表抄表">自来水公司水表抄表</a>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!--					</dd>-->
+<!--				</dl>-->
+<!--				<dl id="menu-admin">-->
+<!--					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe62d;</i> 手机管理终端<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>-->
+<!--					<dd>-->
+<!--						<ul>-->
+<!--							<li>-->
+<!--								<a href="product-list6_1.html" title="手机录入管理">手机录入管理</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list6_2.html" title="消息推送">消息推送</a>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!--					</dd>-->
+<!--				</dl>-->
+<!--				<dl id="menu-tongji">-->
+<!--					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe61a;</i> 节能控制（定制）<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>-->
+<!--					<dd>-->
+<!--						<ul>-->
+<!--							<li>-->
+<!--								<a href="product-list7_1.html" title="设备运行指导">设备运行指导</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="product-list7_2.html" title="供热运行指导">供热运行指导</a>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!--					</dd>-->
+<!--				</dl>-->
+<!--				<dl id="menu-system">-->
+<!--					<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe62e;</i> 系统设置<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>-->
+<!--					<dd>-->
+<!--						<ul>-->
+<!--							<li>-->
+<!--								<a href="system-base.html" title="部门信息维护">部门信息维护</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="system-base1.html" title="人员信息维护">人员信息维护</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="system-base2.html" title="角色信息维护">角色信息维护</a>-->
+<!--							</li>-->
+<!--							<li>-->
+<!--								<a href="system-base3.html" title="修改密码">修改密码</a>-->
+<!--							</li>-->
+<!--						</ul>-->
+<!--					</dd>-->
+<!--				</dl>-->
+<!--			</div>-->
+<!--		</aside>-->
+<!--		<div class="dislpayArrow hidden-xs">-->
+<!--			<a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a>-->
+<!--		</div>-->
 		<!--/_menu 作为公共模版分离出去-->
 
 		<section class="Hui-article-box">
@@ -261,6 +263,7 @@
 		</section>
 
 		<!--_footer 作为公共模版分离出去-->
+		<script type="text/javascript" src="js/menu.js"></script>
 		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
 		<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>

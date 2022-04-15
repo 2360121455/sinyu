@@ -18,10 +18,8 @@ public class GlobalExceptionHandler {
             return R.failure(R.State.ERR_INSERT,e);
         }else if (e instanceof InvalidParameterException){
             return R.failure(R.State.ERR_INVALID_PARAMETER,e);
-        }else if (e instanceof AccountInexistenceException){
-            return R.failure(2002,e);
-        }else if (e instanceof WrongPasswordException){
-            return R.failure(2003,e);
+        }else if (e instanceof DontAgreeException){
+            return R.failure(R.State.ERR_DONT_AGREE,e);
         }
         return R.failure(-99999,"出现了未知错误，请联系管理员！");
     }

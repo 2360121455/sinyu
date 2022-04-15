@@ -1,10 +1,9 @@
 package cn.sinyu.energy.portal.controller;
 
 
-import cn.sinyu.energy.portal.dto.UserlistLoginDTO;
 import cn.sinyu.energy.portal.dto.UserlistRegisterDTO;
 import cn.sinyu.energy.portal.ex.InvalidParameterException;
-import cn.sinyu.energy.portal.service.impl.UserlistServiceImpl;
+import cn.sinyu.energy.portal.service.IUserlistService;
 import cn.sinyu.energy.portal.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -27,7 +26,7 @@ import javax.validation.Valid;
 public class UserlistController extends GlobalExceptionHandler {
     //装配业务层对象
     @Autowired
-    UserlistServiceImpl userService;
+    IUserlistService userService;
 
     /**
      * 注册
@@ -35,27 +34,14 @@ public class UserlistController extends GlobalExceptionHandler {
      * @return
      */
     @PostMapping("/register")
-    public R Register(@Valid UserlistRegisterDTO userlistRegisterDTO, BindingResult bindingResult) {
+    public R<Void> Register(@Valid UserlistRegisterDTO userlistRegisterDTO, BindingResult bindingResult) {
         //验证格式
         if(bindingResult.hasErrors()){
             String errorMessage = bindingResult.getFieldError().getDefaultMessage();
             throw new InvalidParameterException(errorMessage);
         }
         userService.Register(userlistRegisterDTO);
-        return R.ok();
+        return R.ok().setMessage("注册成功");
     }
-
-    /**
-     * 登录
-     * @param userlistLoginDTO
-     * @return
-     */
-    @PostMapping("/login")
-    public R Login(UserlistLoginDTO userlistLoginDTO) {
-        userService.Login(userlistLoginDTO);
-
-        return R.ok();
-    }
-
 
 }

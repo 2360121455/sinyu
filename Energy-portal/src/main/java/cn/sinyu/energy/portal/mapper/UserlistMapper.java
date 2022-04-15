@@ -1,5 +1,6 @@
 package cn.sinyu.energy.portal.mapper;
 
+import cn.sinyu.energy.portal.VO.UserLoginVO;
 import cn.sinyu.energy.portal.model.Userlist;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
@@ -14,5 +15,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserlistMapper extends BaseMapper<Userlist> {
+    Userlist findByAccount(String account);
 
+    UserLoginVO findVOByAccount(String account);
 }

@@ -1,0 +1,219 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="Bookmark" href="favicon.ico">
+		<link rel="Shortcut Icon" href="favicon.ico" />
+		<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+		<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+		<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script><![endif]-->
+		<!--/meta 作为公共模版分离出去-->
+
+		<title>能源数据采集与管控平台 - iEms-onLine V3.0</title>
+	</head>
+
+	<body>
+		<!--_header 作为公共模版分离出去-->
+		<header class="navbar-wrapper">
+			<div class="navbar navbar-fixed-top">
+				<div class="container-fluid cl">
+					<a class="logo navbar-logo f-l mr-10 hidden-xs" href="index.html"><img src="static/h-ui.admin/images/sinyu.png" style="width: 50px;"/>&nbsp;能源数据采集与管控平台</a>
+					<a class="logo navbar-logo-m f-l mr-10 visible-xs" href="index.html">iEms-onLine V3.0</a>
+					<span class="logo navbar-slogan f-l mr-10 hidden-xs">iEms-onLine V3.0</span>
+					<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
+						<ul class="cl">
+						target="iframe"			<a href="javascript:;" data-val="blue" title="黑色">黑色</a>
+									</li>
+									<li>
+										<a href="javascript:;" data-val="green" title="绿色">绿色</a>
+									</li>
+									<li>
+										<a href="javascript:;" data-val="red" title="红色">红色</a>
+									</li>
+									<li>
+										<a href="javascript:;" data-val="yellow" title="黄色">黄色</a>
+									</li>
+									<li>
+										<a href="javascript:;" data-val="orange" title="橙色">橙色</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+		<!--/_header 作为公共模版分离出去-->
+
+		<section class="Hui-article-box">
+			<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统设置 <span class="c-gray en">&gt;</span> 节点设置
+				<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+			</nav>
+			<div class="Hui-article1">
+				<article class="cl pd-20">
+					<form action="" method="post" class="form form-horizontal" id="form-article-add">
+						<div id="tab-system" class="HuiTab">
+							<div class="tabBar cl"><span>节点设置</span></div>
+							<div class="mt-20">
+								<table class="table table-border table-bordered table-hover table-bg table-sort">
+									<thead>
+										<tr class="text-c">
+											<th colspan="2">节点设置</th>
+											<!-- <th colspan="2"></th> -->
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="text-c">
+											<td>节点名称：</td>
+											<td><input type="text" class="input-text" name="newpassword" id="newpassword" placeholder="请输入节点名称"></td>
+											<!-- <td>节点等级:</td>
+											<td><select name="">
+												<option value="">请选择节点等级</option>
+												<option value="">1</option>
+												<option value="">2</option>
+												<option value="">3</option>
+												<option value="">4</option>
+											</select></td> -->
+										</tr>
+										<tr class="text-c">
+											<td>节点等级:</td>
+											<td><select name="" style="font-size:17px; height: 30px; width: 200px;">
+												<option value="">请选择节点等级</option>
+												<option value="">1</option>
+												<option value="">2</option>
+												<option value="">3</option>
+												<option value="">4</option>
+											</select></td>
+											<!-- <td>节点类型:</td>
+											<td>
+												<select name="">
+													<option value="">请选择节点类型</option>
+													<option value="">表格</option>
+													<option value="">图标</option>
+													<option value="">图片</option>
+													<option value="">父级节点</option>
+												</select>
+											</td> -->
+										</tr>
+									    <tr class="text-c">
+									    	<td>父级节点:</td>
+									    	<td>
+									    		<select name="" style="font-size:17px; height: 30px; width: 200px;">
+									    		<option value="">请选择父级节点</option>
+									    	    </select>
+									    	</td>
+									    	<!-- <td>节点类型:</td>
+									    	<td>
+									    		<select name="">
+									    			<option value="">请选择节点类型</option>
+									    			<option value="">表格</option>
+									    			<option value="">图标</option>
+									    			<option value="">图片</option>
+									    			<option value="">父级节点</option>
+									    		</select>
+									    	</td> -->
+									    </tr>
+									    <tr class="text-c">
+									    	<td>节点类型:</td>
+									    	<td>
+									    		<select name="" style="font-size:17px; height: 30px; width: 200px;">
+									    			<option value="">请选择节点类型</option>
+									    			<option value="">表格</option>
+									    			<option value="">图标</option>
+									    			<option value="">图片</option>
+									    			<option value="">父级节点</option>
+									    		</select>
+									    	</td>
+									    	<!-- <td>节点类型:</td>
+									    	<td>
+									    		<select name="">
+									    			<option value="">请选择节点类型</option>
+									    			<option value="">表格</option>
+									    			<option value="">图标</option>
+									    			<option value="">图片</option>
+									    			<option value="">父级节点</option>
+									    		</select>
+									    	</td> -->
+									    </tr>
+									</tbody>
+								</table>
+								<div class="row cl">
+									<div class="col-xs-8 col-sm-7 col-xs-offset-4 col-sm-offset-5">
+										<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+										<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</article>
+			</div>
+		</section>
+		
+		<!-- <div id="" class="jiedian">
+			<div id="biaoti">
+				<h2>节点设置</h2>
+			</div>
+			<table class="table-1">
+				<tr>
+					<td>节点名称:</td>
+					<td><input type="text" name="jiedianname" class="shurukuang" placeholder="请输入节点名称" /></td>
+				</tr>
+				<tr>
+					<td>节点等级:</td>
+					<td><select name="">
+						<option value="">请选择节点等级</option>
+						<option value="">1</option>
+						<option value="">2</option>
+						<option value="">3</option>
+						<option value="">4</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>父级节点:</td>
+					<td>
+						<select name="">
+						<option value="">请选择父级节点</option>
+					    </select>
+					</td>
+				</tr>
+				<tr>
+					<td>节点类型:</td>
+					<td>
+						<select name="">
+							<option value="">请选择节点类型</option>
+							<option value="">表格</option>
+							<option value="">图标</option>
+							<option value="">图片</option>
+							<option value="">父级节点</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<div >
+			    <div class="anniu">
+			        <button type="button" class="queding">确定</button>
+			        <button type="button" class="quxiao">取消</button>
+			    </div>
+			</div>
+		</div> -->
+		
+		
+	</body>
+
+</html>

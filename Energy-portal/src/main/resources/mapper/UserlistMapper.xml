@@ -14,4 +14,31 @@
         <result column="state" property="state" />
     </resultMap>
 
+    <select id="findByAccount"
+            resultType="cn.sinyu.energy.portal.model.Userlist">
+        SELECT *
+        FROM iEMSOnLine.dbo.userlist
+        Where account = #{account}
+    </select>
+
+    <resultMap id="UserLoginMap" type="cn.sinyu.energy.portal.VO.UserLoginVO">
+        <id column="user_code" property="userCode" />
+        <result column="user_name" property="userName" />
+        <result column="account" property="account" />
+        <result column="password" property="password" />
+        <result column="state" property="state" />
+        <collection property="permissions" ofType="cn.sinyu.energy.portal.VO.permissionVO">
+            <result column="authority" property="authority"/>
+        </collection>
+    </resultMap>
+    <select id="findVOByAccount"
+            resultMap="UserLoginMap">
+        SELECT
+            user_code,user_name,account,password,state,authority
+        from userlist
+                 LEFT JOIN role_permission ON userlist.role_code = role_permission.role_code
+                 LEFT JOIN permission ON permission.code = role_permission.permission_code
+        where account = #{account}
+
+    </select>
 </mapper>

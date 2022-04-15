@@ -13,6 +13,7 @@ function Huiasidedisplay(){
 		$(".Hui-aside").show()
 	} 
 }
+
 /*获取皮肤cookie*/
 function getskincookie(){
 	var v = $.cookie("Huiskin");
@@ -118,8 +119,15 @@ $(function(){
 		}
 	});
 	
+	
+	
 	/*左侧菜单*/
 	$(".Hui-aside").Huifold({
+		titCell:'.menu_dropdown dl dt',
+		mainCell:'.menu_dropdown dl dd',
+	});
+		
+	$(".Hui-aside1").Huifold({
 		titCell:'.menu_dropdown dl dt',
 		mainCell:'.menu_dropdown dl dd',
 	});	

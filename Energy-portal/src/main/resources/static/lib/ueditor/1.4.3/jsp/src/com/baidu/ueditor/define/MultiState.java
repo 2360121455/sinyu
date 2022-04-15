@@ -41,9 +41,7 @@ public class MultiState implements State {
 		return this.state;
 	}
 	
-	public void addState ( State state ) {
-		stateList.add( state.toJSONString() );
-	}
+
 
 	/**
 	 * 该方法调用无效果
