@@ -27,9 +27,12 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 "/login",
                 "/register.html",
                 "/portal/userlist/register",
-                "/static/**",
+                "/css/**",
+                "/images/**",
                 "/js/**",
                 "/lib/**",
+                "/plugins/**",
+                "/static/**",
                 "/temp/**",
                 "/favicon.ico"
         };

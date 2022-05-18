@@ -1,5 +1,7 @@
 package cn.sinyu.energy.portal.service;
 
+import cn.sinyu.energy.portal.VO.MenuVO;
+import cn.sinyu.energy.portal.dto.MenusDTO;
 import cn.sinyu.energy.portal.model.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -15,5 +17,9 @@ import java.util.List;
  */
 public interface IMenuService extends IService<Menu> {
 
-    List<Menu> getMenu();
+    List<MenuVO> getMenu(MenusDTO menusDTO);
+
+    List<MenuVO> getMenuFacility(String menuCode);
+
+    List<Menu> findMenus();
 }

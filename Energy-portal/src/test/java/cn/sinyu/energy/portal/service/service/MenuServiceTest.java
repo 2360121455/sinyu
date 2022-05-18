@@ -1,6 +1,7 @@
 package cn.sinyu.energy.portal.service.service;
 
-import cn.sinyu.energy.portal.model.Menu;
+import cn.sinyu.energy.portal.VO.MenuVO;
+import cn.sinyu.energy.portal.dto.MenusDTO;
 import cn.sinyu.energy.portal.service.IMenuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ public class MenuServiceTest {
 
     @Test
     void getMenuList(){
-        List<Menu> menuList = iMenuService.getMenu();
+        MenusDTO menusDTO = new MenusDTO();
+        menusDTO.setMenuCode("01");
+        List<MenuVO> menuList = iMenuService.getMenu(menusDTO);
         System.out.println(menuList);
     }
 }

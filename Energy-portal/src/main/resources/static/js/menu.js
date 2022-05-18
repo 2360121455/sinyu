@@ -2,18 +2,33 @@ let menusApp = new Vue({
     el: '#menusApp',
     data:{
         menus: [
-            {id: 1,name:'spring'},
-            {id: 2,name:'springMVC'},
-            {id: 3,name:'mybatis'},
-            {id: 4,name:'springboot'}
-        ]
+        ],
+        ms:[
+        ],
+        area: {}
     },
     methods: {
-        loadMenus: function () {
+        loadMenus: function (menuCode) {
             $.ajax({
-                url: '/portal/menus',
+                url: '/portal/menu/menus',
+                type:'post',
+                data:{
+                    menuCode: menuCode
+                },
                 success:function (r){
-                    menusApp.menus = r.data
+                    menusApp.menus = r.data;
+                }
+            })
+        },
+        skip: function (menuCode) {
+            $.ajax({
+                url: '/portal/menu/menusFacility',
+                type:'post',
+                data:{
+                    menuCode: menuCode
+                },
+                success:function (r){
+                    menusApp.ms = r.data;
                 }
             })
         }

@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author zcd
- * @since 2022-03-24
+ * @since 2022-04-27
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -38,8 +38,14 @@ public class Menu implements Serializable {
     @TableField("menu_parent_code")
     private String menuParentCode;
 
+    @TableField("menu_parent_name")
+    private String menuParentName;
+
     @TableField("menu_top_code")
     private String menuTopCode;
+
+    @TableField("path")
+    private String path;
 
 
 }

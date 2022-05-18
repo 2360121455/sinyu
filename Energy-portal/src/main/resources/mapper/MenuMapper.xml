@@ -9,7 +9,14 @@
         <result column="menu_name" property="menuName" />
         <result column="menu_level" property="menuLevel" />
         <result column="menu_parent_code" property="menuParentCode" />
+        <result column="menu_parent_name" property="menuParentName" />
         <result column="menu_top_code" property="menuTopCode" />
+        <result column="path" property="path" />
     </resultMap>
+    <select id="findByMenuCode" resultType="cn.sinyu.energy.portal.VO.MenuVO">
+        SELECT id,menu_name,menu_code,path
+        FROM iEMSOnLine.dbo.menu
+        Where menu_parent_code = #{menuCode}
+    </select>
 
 </mapper>

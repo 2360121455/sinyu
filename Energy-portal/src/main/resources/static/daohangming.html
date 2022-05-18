@@ -42,7 +42,7 @@
             }
             var tname;
             tname = targ.title;
-            alert("您点击了 " + tname + " 元素。");
+            alert(tname);
         }
     </script>
 </head>
@@ -50,9 +50,7 @@
 
 <aside class="Hui-aside1">
     <div id="menusApp" class="menu_dropdown bk_2" onmousedown="whichElement(event)">
-        <dl>
-            <dt>&#xe616;</i> <font size="4">导航栏</font></dt>
-        </dl>
+
         <dl id="menu-article">
 
             <!--<dt><i class="Hui-iconfont" style="color: dodgerblue">&#xe616;</i> 能耗数据采集<i
@@ -212,11 +210,6 @@
 <script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.page.js"></script>
 <script type="text/javascript" src="/js/menu.js"></script>
 <!--/_footer /作为公共模版分离出去-->
-<script type="text/javascript">
-    $(".tags-container > p").click(function(event) {undefined
-        alert($(this).text());
-    });
-</script>
 
 </body>
 </html>

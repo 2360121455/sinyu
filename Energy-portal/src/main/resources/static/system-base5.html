@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+
+<div class="container" id="app">
+    <br/>
+    <!--<form class="form-inline">-->
+        <button type="button" class="btn btn-primary" @click="handleAdd">新增</button>
+        <!--<div class="form-group" style="float: right">
+            <label>搜索</label>
+            <input type="text" class="form-control" v-model="query" @input ="handleSearch"  placeholder="请输节点名称">
+        </div>-->
+    <!--</form>-->
+    <hr/>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>节点名称</th>
+                <th>父节点</th>
+                <th>节点类型</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(td,index) in tableDatas" :key="index">
+                <td v-text="index+1"></td>
+                <td v-text="td.menuName"></td>
+                <td v-text="td.menuParentName"></td>
+                <td></td>
+                <td>
+                    <button type="button" class="btn btn-success" @click="handleSon(td.menuCode)">子节点</button>
+                    <button type="button" class="btn btn-default" @click="handleEdit(index)">编辑</button>
+                    <button type="button" class="btn btn-danger" @click="handleDelete(index)">删除</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!--新增编辑弹窗-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" v-model="form.firstName">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" v-model="form.lastName">
+                        </div>
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" v-model="form.userName">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" @click="handleSubmit">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script>
+
+    var app=new Vue({
+        el:"#app",
+        data:{
+            form: {},
+            tableDatas:[
+            ],
+			cloneTableDatas:[],
+			idx:-1,
+            query : ""
+        },
+        methods: {
+            //查找
+            handleFind: function (){
+                $.ajax({
+                    url: '/portal/menu/findmenus',
+                    success:function (r){
+                        app.tableDatas = r.data;
+                    }
+                })
+            },
+            //子节点
+            handleSon: function (menuCode){
+                console.log(menuCode);
+               /* $.ajax({
+                    url: '/portal/menu/findson',
+                    type: 'post',
+                    data:{
+
+                    },
+                    success:function (r){
+                        app.tableDatas = r.data;
+                    }
+                })*/
+            },
+            //新增
+            handleAdd: function () {
+				this.idx = -1;
+				this.form = {}
+                $('#editModal').modal('show');
+            },
+			//编辑
+			handleEdit: function (index) {
+				this.idx = index;
+				this.form = JSON.parse(JSON.stringify(this.tableDatas))[index]
+			    $('#editModal').modal('show');
+			},
+			//删除
+			handleDelete: function (index) {
+                const r = confirm("确认删除此节点以及子节点?")
+                if (r === true){
+                    alert("删除成功！");
+                    this.tableDatas.splice(index, 1);
+                    return true;
+                }
+                return false;
+			},
+            //提交
+            handleSubmit:function(){
+				if(this.idx===-1){
+					this.tableDatas.push(this.form);
+				}else{
+					this.$set(this.tableDatas, this.idx, this.form);
+				}
+				this.tableDatas = this.tableDatas
+                $('#editModal').modal('hide');
+            },
+            //查询firstName列
+            handleSearch:function (e) {
+                var serchkey=this.query;
+				var searchArray=[];
+                if(serchkey){
+					searchArray = this.cloneTableDatas.filter((item)=>{
+						return item.firstName.indexOf(serchkey) > -1
+					});
+                }else{
+					searchArray = this.cloneTableDatas;
+                }
+				this.tableDatas = searchArray
+            }
+
+        },
+        //在实例被创建之后被调用
+        created: function () {
+            // this.cloneTableDatas = JSON.parse(JSON.stringify(this.tableDatas))//克隆
+            this.handleFind();
+        }
+    })
+
+
+</script>
+
+</body>
+</html>

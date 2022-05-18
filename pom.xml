@@ -47,6 +47,14 @@
                 <version>${spring-boot.version}</version>
             </dependency>
 
+            <!-- springBoot整合Thymeleaf -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+
             <!-- lombok -->
             <dependency>
                 <groupId>org.projectlombok</groupId>

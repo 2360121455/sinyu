@@ -1,7 +1,9 @@
 package cn.sinyu.energy.portal;
 
 import cn.sinyu.energy.portal.VO.UserLoginVO;
+import cn.sinyu.energy.portal.mapper.MainDataMapper;
 import cn.sinyu.energy.portal.mapper.MenuMapper;
+import cn.sinyu.energy.portal.mapper.PointDataMapper;
 import cn.sinyu.energy.portal.mapper.UserlistMapper;
 import cn.sinyu.energy.portal.model.Menu;
 import cn.sinyu.energy.portal.model.Userlist;
@@ -26,6 +28,10 @@ public class MybatisPlusTests {
     UserlistServiceImpl userService;
     @Autowired
     MenuMapper menuMapper;
+    @Autowired
+    PointDataMapper pointDataMapper;
+    @Autowired
+    MainDataMapper mainDataMapper;
 
     @Test
     void insert(){
@@ -56,6 +62,7 @@ public class MybatisPlusTests {
     @Test
     void select(){
         QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("menu_level",0);
         List<Menu> menuList = menuMapper.selectList(queryWrapper);
         System.out.println(menuList);
     }
