@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class MainDataDTO implements Serializable {
-    private Integer menuId;
+    private String locationCode;
     private String menuName;
+    private String menuCode;
 }

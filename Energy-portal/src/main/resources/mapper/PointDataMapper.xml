@@ -18,7 +18,7 @@
         <result column="currentt" property="currentt" />
         <result column="state" property="state" />
         <result column="date" property="date" />
-        <result column="menu_id" property="menuId" />
+        <result column="location_code" property="locationCode" />
     </resultMap>
 
 </mapper>

@@ -11,5 +11,6 @@ public class MenuVO implements Serializable {
     private String menuCode;
     private String menuName;
     private String path;
+    private String locationCode;
     private List<MenuVO> menuVOS;
 }

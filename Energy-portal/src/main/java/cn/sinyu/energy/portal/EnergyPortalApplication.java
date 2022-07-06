@@ -7,9 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @MapperScan("cn.sinyu.energy.portal.mapper")
 public class EnergyPortalApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(EnergyPortalApplication.class, args);
     }
-
 }

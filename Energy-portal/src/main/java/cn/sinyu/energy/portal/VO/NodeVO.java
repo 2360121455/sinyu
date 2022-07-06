@@ -1,14 +1,15 @@
 package cn.sinyu.energy.portal.VO;
 
+import cn.sinyu.energy.portal.model.Menu;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 public class NodeVO implements Serializable {
-    private Integer id;
     private String menuCode;
+    private String menuLevel;
     private String menuName;
-    private String path;
-    private String parentName;
+    private List<Menu> menuList;
 }

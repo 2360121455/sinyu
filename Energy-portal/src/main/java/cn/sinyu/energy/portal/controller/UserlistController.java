@@ -43,5 +43,4 @@ public class UserlistController extends GlobalExceptionHandler {
         userService.Register(userlistRegisterDTO);
         return R.ok().setMessage("注册成功");
     }
-
 }

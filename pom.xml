@@ -91,9 +91,6 @@
                 <version>${druid.version}</version>
             </dependency>
 
-
-
-
             <!-- SpringBoot单元测试-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -126,5 +123,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

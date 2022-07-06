@@ -1,0 +1,375 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="Bookmark" href="favicon.ico">
+		<link rel="Shortcut Icon" href="favicon.ico" />
+		<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+		<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
+		<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
+		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
+		<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script><![endif]-->
+		<!--/meta 作为公共模版分离出去-->
+
+		<title>能源数据采集与管控平台 - iEms-onLine V3.0</title>
+		<link rel="stylesheet" href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	</head>
+
+	<body>
+		<section class="Hui-article-box">
+			<!--<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 能源数据分析 <span class="c-gray en">&gt;</span> 数据报表 <span class="c-gray en">&gt;</span> 年度能源消耗统计报表
+				<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+			</nav>-->
+			<div class="Hui-article">
+				<div style="margin-left:0px;" id="tableApp">
+					<div class="cl pd-5 bg-1 bk-gray mt-20">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区域名称：
+						<!-- 内容为所有location表中的name -->
+						<select style="width: 200px; height: 29px; border: 1px solid cornflowerblue; border-radius: 5px; text-align: center;" v-model="locationName">
+							<option selected>----请选择----</option>
+							<option v-for="l in locations" v-text="l.locationCode+'-'+l.locationName"></option>
+						</select>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;能源种类：
+						<!-- 内容为所有main_data表下的能源种类 -->
+						<select style="width: 200px; height: 29px; border: 1px solid cornflowerblue; border-radius: 5px; text-align: center;" v-model="typeName">
+							<option selected>----请选择----</option>
+							<option>电</option>
+							<option v-for="t in types" v-text="t"></option>
+						</select>
+						<a class="btn btn-primary radius" @click="selectSubmit">查询</a>
+					</div>
+					<div class="pd-20">
+						<div class="mt-0">
+							<table v-if="tablePointData !== undefined && tablePointData != null && tablePointData.length > 0" class="table table-border table-bordered table-bg table-hover table-sort">
+								<caption style="font-size: 20px;">
+									<b>{{Lname}}电能表电量采集明细表</b>
+								</caption>
+								<thead>
+									<tr class="text-c">
+										<th>序号</th>
+										<th>位置</th>
+										<th>设备编号</th>
+										<th>协议类型</th>
+										<th>采集器名称</th>
+										<th>级次</th>
+										<th>电表示数（Kwh）</th>
+										<th>A相电压（V）</th>
+										<th>B相电压（V）</th>
+										<th>C相电压（V）</th>
+										<th>电流（V）</th>
+										<th>采集状态</th>
+									</tr>
+								</thead>
+								<tbody>
+								<tr v-for="(tpd,index) in tablePointData" class="text-c va-m">
+									<td v-text="index+1"></td>
+									<td v-text="tpd.adr"></td>
+									<td v-text="tpd.equipCode"></td>
+									<td v-text="tpd.proType"></td>
+									<td v-text="tpd.collectorName"></td>
+									<td v-text="tpd.rank"></td>
+									<td v-text="tpd.collectorNumber"></td>
+									<td v-text="tpd.av"></td>
+									<td v-text="tpd.bv"></td>
+									<td v-text="tpd.cv"></td>
+									<td v-text="tpd.currentt"></td>
+									<td v-text="tpd.state"></td>
+								</tr>
+								</tbody>
+							</table>
+							<table v-if="tableMainData !== undefined && tableMainData != null && tableMainData.length > 0" class="table table-border table-bordered table-bg table-hover table-sort">
+								<caption style="font-size: 20px;">
+									<b>{{Lname}}{{typeName}}采集明细表</b>
+								</caption>
+								<thead>
+								<tr class="text-c">
+									<th>序号</th>
+									<th>能源类型</th>
+									<th>位置</th>
+									<th>设备编号</th>
+									<th>协议类型</th>
+									<th>采集器名称</th>
+									<th>级次</th>
+									<th>表示数</th>
+									<th>单位</th>
+									<th>采集状态</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr v-for="(tmd,index) in tableMainData" class="text-c va-m">
+									<td v-text="index+1"></td>
+									<td v-text="tmd.type"></td>
+									<td v-text="tmd.adr"></td>
+									<td v-text="tmd.equipCode"></td>
+									<td v-text="tmd.proType"></td>
+									<td v-text="tmd.collectorName"></td>
+									<td v-text="tmd.rank"></td>
+									<td v-text="tmd.collectorNumber"></td>
+									<td v-text="tmd.unit"></td>
+									<td v-text="tmd.state"></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!--<article class="cl pd-20">
+					<div id="container" style="width:85.5%;height:57%; position: relative; left: 14%;"></div>
+				</article>-->
+			</div>
+		</section>
+		<script src="js/vue.min.js"></script>
+		<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+		<!--_footer 作为公共模版分离出去-->
+		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+		<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
+		<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.page.js"></script>
+		<!--/_footer /作为公共模版分离出去-->
+
+		<!--请在下方写此页面业务相关的脚本-->
+		<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+		<!--<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>-->
+		<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+		<script type="text/javascript" src="lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+		<script type="text/javascript" src="lib/hcharts/Highcharts/5.0.6/js/highcharts.js"></script>
+		<script type="text/javascript" src="lib/hcharts/Highcharts/5.0.6/js/modules/exporting.js"></script>
+		<script src="/js/table.js"></script>
+		<!--<script type="text/javascript">
+			$(function() {
+				$('#container').highcharts({
+					title: {
+						text: '2019年生产用电量折线图',
+						x: -20 //center
+					},
+					subtitle: {
+						text: '',
+						x: -20
+					},
+					xAxis: {
+						categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+					},
+					yAxis: {
+						title: {
+							text: 'Kwh'
+						},
+						plotLines: [{
+							value: 0,
+							width: 1,
+							color: '#808080'
+						}]
+					},
+					tooltip: {
+						valueSuffix: 'Kwh'
+					},
+					legend: {
+						layout: 'vertical',
+						align: 'right',
+						verticalAlign: 'middle',
+						borderWidth: 0
+					},
+					series: [{
+						name: '用电量（Kwh）',
+						data: [1776520,1290629,1693679,1708690,1724186,1717341,1816067,1937223,1909105,1942129,1974289,0]
+					}]
+				});
+			});
+
+			var setting = {
+				view: {
+					dblClickExpand: false,
+					showLine: false,
+					selectedMulti: false
+				},
+				data: {
+					simpleData: {
+						enable: true,
+						idKey: "id",
+						pIdKey: "pId",
+						rootPId: ""
+					}
+				},
+				callback: {
+					beforeClick: function(treeId, treeNode) {
+						var zTree = $.fn.zTree.getZTreeObj("tree");
+						if(treeNode.isParent) {
+							zTree.expandNode(treeNode);
+							return false;
+						} else {
+							demoIframe.attr("src", treeNode.file + ".html");
+							return true;
+						}
+					}
+				}
+			};
+
+			var zNodes = [{
+					id: 1,
+					pId: 0,
+					name: "数据报表",
+					open: true
+				},
+				{
+					id: 11,
+					pId: 1,
+					name: "年度能源消耗统计报表"
+				},
+				{
+					id: 12,
+					pId: 1,
+					name: "前纺车间生产统计报表"
+				},
+				{
+					id: 13,
+					pId: 1,
+					name: "后纺车间生产统计报表"
+				},
+				{
+					id: 14,
+					pId: 1,
+					name: "宿舍用电统计报表"
+				},
+			];
+
+			var code;
+
+			function showCode(str) {
+				if(!code) code = $("#code");
+				code.empty();
+				code.append("<li>" + str + "</li>");
+			}
+
+			$(document).ready(function() {
+				var t = $("#treeDemo");
+				t = $.fn.zTree.init(t, setting, zNodes);
+				demoIframe = $("#testIframe");
+				demoIframe.bind("load", loadReady);
+				var zTree = $.fn.zTree.getZTreeObj("tree");
+				zTree.selectNode(zTree.getNodeByParam("id", '11'));
+			});
+
+			$('.table-sort').dataTable({
+				"aaSorting": [
+					[1, "desc"]
+				], //默认第几个排序
+				"bStateSave": true, //状态保存
+				"aoColumnDefs": [{
+						"orderable": false,
+						"aTargets": [0, 7]
+					} // 制定列不参与排序
+				]
+			});
+			/*图片-添加*/
+			function product_add(title, url) {
+				var index = layer.open({
+					type: 2,
+					title: title,
+					content: url
+				});
+				layer.full(index);
+			}
+			/*图片-查看*/
+			function product_show(title, url, id) {
+				var index = layer.open({
+					type: 2,
+					title: title,
+					content: url
+				});
+				layer.full(index);
+			}
+			/*图片-审核*/
+			function product_shenhe(obj, id) {
+				layer.confirm('审核文章？', {
+						btn: ['通过', '不通过'],
+						shade: false
+					},
+					function() {
+						$(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="product_start(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
+						$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
+						$(obj).remove();
+						layer.msg('已发布', {
+							icon: 6,
+							time: 1000
+						});
+					},
+					function() {
+						$(obj).parents("tr").find(".td-manage").prepend('<a class="c-primary" onClick="product_shenqing(this,id)" href="javascript:;" title="申请上线">申请上线</a>');
+						$(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">未通过</span>');
+						$(obj).remove();
+						layer.msg('未通过', {
+							icon: 5,
+							time: 1000
+						});
+					});
+			}
+			/*图片-下架*/
+			function product_stop(obj, id) {
+				layer.confirm('确认要下架吗？', function(index) {
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="product_start(this,id)" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
+					$(obj).remove();
+					layer.msg('已下架!', {
+						icon: 5,
+						time: 1000
+					});
+				});
+			}
+
+			/*图片-发布*/
+			function product_start(obj, id) {
+				layer.confirm('确认要发布吗？', function(index) {
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="product_stop(this,id)" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
+					$(obj).remove();
+					layer.msg('已发布!', {
+						icon: 6,
+						time: 1000
+					});
+				});
+			}
+			/*图片-申请上线*/
+			function product_shenqing(obj, id) {
+				$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">待审核</span>');
+				$(obj).parents("tr").find(".td-manage").html("");
+				layer.msg('已提交申请，耐心等待审核!', {
+					icon: 1,
+					time: 2000
+				});
+			}
+			/*图片-编辑*/
+			function product_edit(title, url, id) {
+				var index = layer.open({
+					type: 2,
+					title: title,
+					content: url
+				});
+				layer.full(index);
+			}
+			/*图片-删除*/
+			function product_del(obj, id) {
+				layer.confirm('确认要删除吗？', function(index) {
+					$(obj).parents("tr").remove();
+					layer.msg('已删除!', {
+						icon: 1,
+						time: 1000
+					});
+				});
+			}
+		</script>-->
+		<!--/请在上方写此页面业务相关的脚本-->
+	</body>
+
+</html>

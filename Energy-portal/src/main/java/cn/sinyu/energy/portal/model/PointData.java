@@ -65,8 +65,8 @@ public class PointData implements Serializable {
     @TableField("date")
     private String date;
 
-    @TableField("menu_id")
-    private Integer menuId;
+    @TableField("location_code")
+    private Integer locationCode;
 
 
 }

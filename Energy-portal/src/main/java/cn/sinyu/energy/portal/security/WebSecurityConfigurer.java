@@ -22,6 +22,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //访问控制
+        //这俩面放的都是白名单，就是不用登录就可以访问的
         String[] urls = {
                 "/login.html",
                 "/login",

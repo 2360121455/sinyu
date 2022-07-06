@@ -1,22 +1,18 @@
 package cn.sinyu.energy.portal;
 
 import cn.sinyu.energy.portal.VO.UserLoginVO;
+import cn.sinyu.energy.portal.dto.AddLocationDTO;
 import cn.sinyu.energy.portal.mapper.MainDataMapper;
 import cn.sinyu.energy.portal.mapper.MenuMapper;
 import cn.sinyu.energy.portal.mapper.PointDataMapper;
 import cn.sinyu.energy.portal.mapper.UserlistMapper;
-import cn.sinyu.energy.portal.model.Menu;
 import cn.sinyu.energy.portal.model.Userlist;
+import cn.sinyu.energy.portal.service.impl.LocationServiceImpl;
 import cn.sinyu.energy.portal.service.impl.UserlistServiceImpl;
-import cn.sinyu.energy.portal.util.PasswordUtils;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
-import java.util.UUID;
 
 @SpringBootTest
 @Slf4j
@@ -32,17 +28,14 @@ public class MybatisPlusTests {
     PointDataMapper pointDataMapper;
     @Autowired
     MainDataMapper mainDataMapper;
+    @Autowired
+    LocationServiceImpl locationService;
 
     @Test
     void insert(){
-        Userlist user = new Userlist();
-        user.setUserCode(UUID.randomUUID().toString());
-        user.setUserName("大老黑");
-        user.setAccount("2360121455");
-        user.setPassword(PasswordUtils.encode("123456789"));
-        user.setRoleCode("0");
-        int rows = ulmapper.insert(user);
-        log.debug("rows = "+rows);
+        AddLocationDTO addLocationDTO = new AddLocationDTO();
+        addLocationDTO.setLocationName("A区");
+        locationService.addLocation(addLocationDTO);
     }
 
     @Test
@@ -61,10 +54,7 @@ public class MybatisPlusTests {
 
     @Test
     void select(){
-        QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("menu_level",0);
-        List<Menu> menuList = menuMapper.selectList(queryWrapper);
-        System.out.println(menuList);
+        System.out.println(locationService.findson("01","0","A区"));
     }
 
     @Test

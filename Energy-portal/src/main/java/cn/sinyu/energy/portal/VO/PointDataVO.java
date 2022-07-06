@@ -10,5 +10,6 @@ import java.util.List;
 public class PointDataVO implements Serializable {
     private String areaName;
     private String getTime;
+    private String position;
     private List<PointData> pointDataList;
 }

@@ -1,229 +1,260 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>能源数据采集与管控平台 - iEms-onLine V3.0</title>
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link rel="stylesheet" type="text/css" href="css/page.css" />
-		<link href="plugins/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		<link href="plugins/css/icons.min.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<!--[if lt IE 9]>
-		<script type="text/javascript" src="lib/html5.js"></script>
-		<script type="text/javascript" src="lib/respond.min.js"></script>
-		<![endif]-->
-		<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" />
-		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" />
-		<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" />
-		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin" />
-		<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css" />
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<!--[if IE 6]>
-		<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
-		<script>DD_belatedPNG.fix('*');</script><![endif]-->
-		<link rel="stylesheet" href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
-	</head>
-	<body>
-		<div class="page" id="menusApp">
-			<div th:fragment="nav_menus_left" class="nav-left" ref="navLeft">
-				<div class="LogoName" style="background-color: #2d6dcc">
-					<img src="static/h-ui.admin/images/sinyu.png" style="width: 50px;"/>
-					森宇能源
-				</div>
-				<input type="hidden" id="menuId" name="menuId"/>
-				<div class="navDiv">
-					<div class="nav-list" onmousedown="whichElement(event)">
-						<ul>
-							<li class="nav-tab nav-ul" style="display:block">
-								<a @click="loadMenus('01')" title="能源数据采集" class="li-a"><i title="能源数据采集" class='bx bx-layer'></i> 能源数据采集
-									<i title="能源数据采集" class='bx bx-chevron-right' style="float: right;"></i></a>
-								<div v-for="menu in menus" class="nav-box">
-									<a @click="skip(menu.menuCode)" v-text="menu.menuName" class="li-a-a"></a>
-								</div>
-							</li>
-							<li class="nav-tab nav-ul">
-								<a v-on:click="loadMenus('02')" title="报警功能模块" href="javascript:void[0]" class="li-a"><i title="报警功能模块" class='bx bx-alarm-exclamation'></i>报警功能模块
-									<i title="报警功能模块" class='bx bx-chevron-right' style="float: right;"></i></a>
-								<div v-for="menu in menus" class="nav-box">
-									<a v-text="menu.menuName" :href="menu.path" class="li-a-a" target="iframe"></a>
-								</div>
-								<!--<div class="nav-box">
-									<a title="能源计量报警设备" href="product-list2_1.html" class="li-a-a" target="iframe">能源计量报警设备</a>
-								</div>
-								<div class="nav-box">
-									<a title="能耗预警" href="product-list2_2.html" class="li-a-a" target="iframe">能耗预警</a>
-								</div>-->
-							</li>
-							<li class="nav-tab nav-ul">
-								<a v-on:click="loadMenus('03')" title="能源数据分析" href="javascript:void[0]" class="li-a"><i title="能源数据分析" class='bx bx-table'></i> 能源数据分析
-									<i title="能源数据分析" class='bx bx-chevron-right' style="float: right;"></i></a>
-								<div v-for="menu in menus" class="nav-box">
-									<a v-text="menu.menuName" :href="menu.path" class="li-a-a" target="iframe"></a>
-								</div>
-								<!--<div class="nav-box">
-									<a title="能耗平衡分析" href="product-list3_1.html" class="li-a-a" target="iframe">能耗平衡分析</a>
-								</div>
-								<div class="nav-box">
-									<a title="能效诊断" href="product-list3_2.html" class="li-a-a" target="iframe">能效诊断</a>
-								</div>
-								<div class="nav-box">
-									<a title="数据报表" href="product-list3_3.html" class="li-a-a" target="iframe">数据报表</a>
-								</div>-->
-							</li>
-							<li class="nav-tab nav-ul">
-								<a v-on:click="loadMenus('04')" title="能耗管理" href="javascript:void[0]" class="li-a"><i title="能耗管理" class='bx bx-analyse'></i> 能耗管理
-									<i title="能耗管理" class='bx bx-chevron-right' style="float: right;"></i></a>
-								<div v-for="menu in menus" class="nav-box">
-									<a v-text="menu.menuName" :href="menu.path" class="li-a-a" target="iframe"></a>
-								</div>
-								<!--<div class="nav-box">
-									<a title="内部对标" href="product-list4_1.html" class="li-a-a" target="iframe">内部对标</a>
-								</div>
-								<div class="nav-box">
-									<a title="行业对标" href="product-list4_2.html" class="li-a-a" target="iframe">行业对标</a>
-								</div>
-								<div class="nav-box">
-									<a title="班组考核" href="product-list4_3.html" class="li-a-a" target="iframe">班组考核</a>
-								</div>-->
-							</li>
-							<li class="nav-tab nav-ul">
-								<a v-on:click="loadMenus('05')" title="设备管理" href="javascript:void[0]" class="li-a"><i title="设备管理" class='bx bx-equalizer'></i> 设备管理
-									<i title="设备管理" class='bx bx-chevron-right' style="float: right;"></i></a>
-								<div v-for="menu in menus" class="nav-box">
-									<a v-text="menu.menuName" :href="menu.path" class="li-a-a" target="iframe"></a>
-								</div>
-								<!--<div class="nav-box">
-									<a title="耗能设备" href="product-list5_1.html" class="li-a-a" target="iframe">耗能设备</a>
-								</div>
-								<div class="nav-box">
-									<a title="能源计量设备" href="product-list5_2.html" class="li-a-a" target="iframe">能源计量设备</a>
-								</div>
-								<div class="nav-box">
-									<a title="电业局电能表抄表" href="product-list5_3.html" class="li-a-a" target="iframe">电业局电能表抄表</a>
-								</div>
-								<div class="nav-box">
-									<a title="自来水公司水表抄表" href="product-list5_4.html" class="li-a-a" target="iframe">自来水公司水表抄表</a>
-								</div>-->
-							</li>
-							<li class="nav-tab nav-ul">
-								<a v-on:click="loadMenus('06')" title="手机管理终端" href="javascript:void[0]" class="li-a"><i title="手机管理终端" class='bx bx-tab'></i> 手机管理终端
-									<i title="手机管理终端" class='bx bx-chevron-right' style="float: right;"></i></a>
-								<div v-for="menu in menus" class="nav-box">
-									<a v-text="menu.menuName" :href="menu.path" class="li-a-a" target="iframe"></a>
-								</div>
-								<!--<div class="nav-box">
-									<a title="手机管理录入" href="product-list6_1.html" class="li-a-a" target="iframe">手机管理录入</a>
-								</div>
-								<div class="nav-box">
-									<a title="消息推送" href="product-list6_2.html" class="li-a-a" target="iframe">消息推送</a>
-								</div>-->
-							</li>
-							<li class="nav-tab nav-ul">
-								<a v-on:click="loadMenus('07')" title="节能控制(定制)" href="javascript:void[0]" class="li-a"><i title="节能控制(定制)" class='bx bx-abacus'></i> 节能控制(定制)
-									<i title="节能控制(定制)" class='bx bx-chevron-right' style="float: right;"></i></a>
-								<div v-for="menu in menus" class="nav-box">
-									<a v-text="menu.menuName" :href="menu.path" class="li-a-a" target="iframe"></a>
-								</div>
-							</li>
-							<li class="nav-tab nav-ul">
-								<a title="系统设置" href="javascript:void[0]" class="li-a"><i title="系统设置" class='bx bx-edit'></i> 系统设置
-									<i title="系统设置" class='bx bx-chevron-right' style="float: right;"></i></a>
-								<div class="nav-box">
-									<a title="部门信息维护" href="system-base.html" class="li-a-a" target="iframe">部门信息维护</a>
-								</div>
-								<div class="nav-box">
-									<a title="人员信息维护" href="system-base1.
+<head>
+    <meta charset="utf-8">
+    <title>能源数据采集与管控平台 - iEms-onLine V3.0</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="css/page.css"/>
+    <link href="plugins/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="plugins/css/icons.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="lib/html5.js"></script>
+    <script type="text/javascript" src="lib/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" id="skin"/>
+    <link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!--[if IE 6]>
+    <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>DD_belatedPNG.fix('*');</script><![endif]-->
+    <link rel="stylesheet" href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+</head>
+<body>
+<div class="page" id="menusApp">
+    <div th:fragment="nav_menus_left" class="nav-left" ref="navLeft">
+        <div class="LogoName" style="background-color: #2d6dcc">
+            <img src="static/h-ui.admin/images/sinyu.png" style="width: 50px;"/>
+            森宇能源
+        </div>
+        <input type="hidden" id="menuId" name="menuId"/>
+        <!-- 左侧导航栏 -->
+        <div class="navDiv">
+            <div class="nav-list" onmousedown="whichElement(event)">
+                <ul>
+                    <li class="nav-tab nav-ul" style="display:block">
+                        <a @click="loadMenus('01')" href="javascript:void[0]" title="能源数据采集" class="li-a"><i
+                                title="能源数据采集" class='bx bx-layer'></i> 能源数据采集
+                            <i title="能源数据采集" class='bx bx-chevron-right' style="float: right;"></i></a>
+                        <div v-for="menu in menus" class="nav-box">
+                            <!-- 如果这个节点的path是空，就查询他的子节点，如果不是空，就证明他是末级节点，直接跳转到path，下同 -->
+                            <a v-if="menu.path == null" @click="skip(menu.menuCode,menu.menuName)"
+                               v-text="menu.menuName" class="li-a-a"></a>
+                            <a v-if="menu.path != null" :href="menu.path" v-text="menu.menuName" class="li-a-a"
+                               target="iframe"></a>
+                        </div>
+                    </li>
+                    <li class="nav-tab nav-ul">
+                        <a v-on:click="loadMenus('02')" title="报警功能模块" href="javascript:void[0]" class="li-a"><i
+                                title="报警功能模块" class='bx bx-alarm-exclamation'></i>报警功能模块
+                            <i title="报警功能模块" class='bx bx-chevron-right' style="float: right;"></i></a>
+                        <div v-for="menu in menus" class="nav-box">
+                            <a v-text="menu.menuName" :href="menu.path" class="li-a-a" target="iframe"></a>
+                        </div>
+                        <!--<div class="nav-box">
+                            <a title="能源计量报警设备" href="product-list2_1.html" class="li-a-a" target="iframe">能源计量报警设备</a>
+                        </div>
+                        <div class="nav-box">
+                            <a title="能耗预警" href="product-list2_2.html" class="li-a-a" target="iframe">能耗预警</a>
+                        </div>-->
+                    </li>
+                    <li class="nav-tab nav-ul">
+                        <a v-on:click="loadMenus('03')" title="能源数据分析" href="javascript:void[0]" class="li-a"><i
+                                title="能源数据分析" class='bx bx-table'></i> 能源数据分析
+                            <i title="能源数据分析" class='bx bx-chevron-right' style="float: right;"></i></a>
+                        <div v-for="menu in menus" class="nav-box">
+                            <a v-text="menu.menuName" :href="menu.path" class="li-a-a" target="iframe"></a>
+                        </div>
+                        <!--<div class="nav-box">
+                            <a title="能耗平衡分析" href="product-list3_1.html" class="li-a-a" target="iframe">能耗平衡分析</a>
+                        </div>
+                        <div class="nav-box">
+                            <a title="能效诊断" href="product-list3_2.html" class="li-a-a" target="iframe">能效诊断</a>
+                        </div>
+                        <div class="nav-box">
+                            <a title="数据报表" href="product-list3_3.html" class="li-a-a" target="iframe">数据报表</a>
+                        </div>-->
+                    </li>
+                    <li class="nav-tab nav-ul">
+                        <a v-on:click="loadMenus('04')" title="能耗管理" href="javascript:void[0]" class="li-a"><i
+                                title="能耗管理" class='bx bx-analyse'></i> 能耗管理
+                            <i title="能耗管理" class='bx bx-chevron-right' style="float: right;"></i></a>
+                        <div v-for="menu in menus" class="nav-box">
+                            <a v-text="menu.menuName" :href="menu.path" class="li-a-a" target="iframe"></a>
+                        </div>
+                        <!--<div class="nav-box">
+                            <a title="内部对标" href="product-list4_1.html" class="li-a-a" target="iframe">内部对标</a>
+                        </div>
+                        <div class="nav-box">
+                            <a title="行业对标" href="product-list4_2.html" class="li-a-a" target="iframe">行业对标</a>
+                        </div>
+                        <div class="nav-box">
+                            <a title="班组考核" href="product-list4_3.html" class="li-a-a" target="iframe">班组考核</a>
+                        </div>-->
+                    </li>
+                    <li class="nav-tab nav-ul">
+                        <a v-on:click="loadMenus('05')" title="设备管理" href="javascript:void[0]" class="li-a"><i
+                                title="设备管理" class='bx bx-equalizer'></i> 设备管理
+                            <i title="设备管理" class='bx bx-chevron-right' style="float: right;"></i></a>
+                        <div v-for="menu in menus" class="nav-box">
+                            <a v-text="menu.menuName" :href="menu.path" class="li-a-a" target="iframe"></a>
+                        </div>
+                        <!--<div class="nav-box">
+                            <a title="耗能设备" href="product-list5_1.html" class="li-a-a" target="iframe">耗能设备</a>
+                        </div>
+                        <div class="nav-box">
+                            <a title="能源计量设备" href="product-list5_2.html" class="li-a-a" target="iframe">能源计量设备</a>
+                        </div>
+                        <div class="nav-box">
+                            <a title="电业局电能表抄表" href="product-list5_3.html" class="li-a-a" target="iframe">电业局电能表抄表</a>
+                        </div>
+                        <div class="nav-box">
+                            <a title="自来水公司水表抄表" href="product-list5_4.html" class="li-a-a" target="iframe">自来水公司水表抄表</a>
+                        </div>-->
+                    </li>
+                    <li class="nav-tab nav-ul">
+                        <a v-on:click="loadMenus('06')" title="手机管理终端" href="javascript:void[0]" class="li-a"><i
+                                title="手机管理终端" class='bx bx-tab'></i> 手机管理终端
+                            <i title="手机管理终端" class='bx bx-chevron-right' style="float: right;"></i></a>
+                        <div v-for="menu in menus" class="nav-box">
+                            <a v-text="menu.menuName" :href="menu.path" class="li-a-a" target="iframe"></a>
+                        </div>
+                        <!--<div class="nav-box">
+                            <a title="手机管理录入" href="product-list6_1.html" class="li-a-a" target="iframe">手机管理录入</a>
+                        </div>
+                        <div class="nav-box">
+                            <a title="消息推送" href="product-list6_2.html" class="li-a-a" target="iframe">消息推送</a>
+                        </div>-->
+                    </li>
+                    <li class="nav-tab nav-ul">
+                        <a v-on:click="loadMenus('07')" title="节能控制(定制)" href="javascript:void[0]" class="li-a"><i
+                                title="节能控制(定制)" class='bx bx-abacus'></i> 节能控制(定制)
+                            <i title="节能控制(定制)" class='bx bx-chevron-right' style="float: right;"></i></a>
+                        <div v-for="menu in menus" class="nav-box">
+                            <a v-text="menu.menuName" :href="menu.path" class="li-a-a" target="iframe"></a>
+                        </div>
+                    </li>
+                    <li class="nav-tab nav-ul">
+                        <a title="系统设置" href="javascript:void[0]" class="li-a"><i title="系统设置" class='bx bx-edit'></i>
+                            系统设置
+                            <i title="系统设置" class='bx bx-chevron-right' style="float: right;"></i></a>
+                        <div class="nav-box">
+                            <a title="部门信息维护" href="system-base.html" class="li-a-a" target="iframe">部门信息维护</a>
+                        </div>
+                        <div class="nav-box">
+                            <a title="人员信息维护" href="system-base1.
 									html" class="li-a-a" target="iframe">人员信息维护</a>
-								</div>
-								<div class="nav-box">
-									<a title="角色信息维护" href="system-base2.html" class="li-a-a" target="iframe">角色信息维护</a>
-								</div>
-								<div class="nav-box">
-									<a title="修改密码" href="system-base3.html" class="li-a-a" target="iframe">修改密码</a>
-								</div>
-								<div class="nav-box">
-									<a title="节点设置" href="system-base5.html" class="li-a-a" target="iframe">节点设置</a>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div th:fragment="nav_menus_right" class="nav-right" ref="navRight">
-				<div style="overflow: hidden" class="content-page" ref="cPage">
-					<div class="Top">
-						<div class="NavMenu">
-							<div class="SubMenu">
-								<ul>
-									<li v-for="m in ms" class="arrow">
-										<a v-text="m.menuName" href="javascript:void[0]"></a>
-										<ul>
-											<li v-for="n in m.menuVOS">
-												<!--<a @click="pointData(n.id,n.menuName)" v-text="n.menuName"></a>-->
-												<a v-text="n.menuName" :href="n.path+'?id='+n.id+'&name='+n.menuName" target="iframe"></a>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<iframe id="iframe" name="iframe" width="100%" height="100%" scrolling="no" frameborder="0"></iframe>
-				</div>
-			</div>
-		</div>
-		<script src="js/vue.min.js"></script>
-		<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-		<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
-		<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
-		<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.page.js"></script>
-		<!--/_footer /作为公共模版分离出去-->
+                        </div>
+                        <div class="nav-box">
+                            <a title="角色信息维护" href="system-base2.html" class="li-a-a" target="iframe">角色信息维护</a>
+                        </div>
+                        <div class="nav-box">
+                            <a title="修改密码" href="system-base3.html" class="li-a-a" target="iframe">修改密码</a>
+                        </div>
+                        <div class="nav-box">
+                            <a title="节点设置" href="system-base5.html" class="li-a-a" target="iframe">节点设置</a>
+                        </div>
+                        <div class="nav-box">
+                            <a title="地址设置" href="system-base6.html" class="li-a-a" target="iframe">地址设置</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div th:fragment="nav_menus_right" class="nav-right" ref="navRight">
+        <div style="overflow: hidden" class="content-page" ref="cPage">
+            <!-- 顶部导航栏 -->
+            <div class="Top">
+                <div class="NavMenu">
+                    <div class="SubMenu">
+                        <ul>
+                            <h4 style="text-align: center">{{titleName}}</h4>
+                            <li v-for="m in ms" v-if="m.path == null" class="arrow">
+                                <a v-text="m.menuName" href="javascript:void[0]"></a>
+                                <ul>
+                                    <li v-for="n in m.menuVOS" v-if="n.path == null" class="arrow">
+                                        <a v-text="n.menuName" href="javascript:void[0]"></a>-
+                                        <div class="PopMenu">
+                                            <div class="PopMenuList">
+                                                <a v-for="mn in n.menuVOS" v-text="mn.menuName"
+                                                   :href="mn.path+'?id='+mn.locationCode+'&name='+mn.menuName+'&code='+mn.menuCode"
+                                                   target="iframe"></a>
+                                            </div>
 
-		<!--请在下方写此页面业务相关的脚本-->
-		<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
-		<!--<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>-->
-		<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
-		<script type="text/javascript" src="lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
-		<script src="/js/menu.js"></script>
-		<script type="text/javascript">
-			function getId(id){
-				alert(id)
-			}
-		</script>
-		<script type="text/javascript">
-			$(function() {
-				let navflag = false;
-				$('.nav-tab').click(function() {
-					$(this).siblings().each(function() {
-						$(this).removeClass('a_active');
-						// $(this).removeClass('a_active');
-						$(this).find('.nav-box').css('height', '0')
-						//关闭右侧箭头
-						if ($(this).attr('class').indexOf('nav-ul') != -1) {
-							$(this).find('.bx-chevron-right').css('transform', 'rotateZ(0deg)')
-							$(this).find('.bx-chevron-right').css('transition', 'all .5s')
-							$(this).removeClass('nav-show')
-							// $(this).find('div').removeClass('nav-box')
-						}
-					})
-					//当前选中
-					$(this).addClass('a_active')
-					$(this).find('.li-a').addClass('active')
-					// 打开右侧箭头
-					$(this).find('.bx-chevron-right').css('transform', 'rotateZ(90deg)')
-					$(this).find('.bx-chevron-right').css('transition', 'all .5s')
-					$(this).addClass('nav-show')
-					// $(this).find('div').addClass('nav-box')
-				})
-				/* 二级菜单a点击事件 */
-				$(".li-a-a").click(function() {
-					$(".li-a-a").each(function() {
-						$(this).removeClass('active-li-a');
-					})
-					$(this).addClass('active-li-a');
-				})
+                                        </div>
+                                    </li>
+                                    <li v-for="n in m.menuVOS" v-if="n.path != null">
+                                        <a v-text="n.menuName"
+                                           :href="n.path+'?id='+n.locationCode+'&name='+n.menuName+'&code='+n.menuCode"
+                                           target="iframe"></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li v-for="m in ms" v-if="m.path != null">
+                                <a v-text="m.menuName"
+                                   :href="m.path+'?id='+m.locationCode+'&name='+m.menuName+'&code='+m.menuCode"
+                                   target="iframe"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <iframe id="iframe" name="iframe" width="100%" height="100%" frameborder="0" src=""></iframe>
+        </div>
+    </div>
+</div>
+<script src="js/vue.min.js"></script>
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.page.js"></script>
+<!--/_footer /作为公共模版分离出去-->
 
-			})
-		</script>
-	</body>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<!--<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>-->
+<script type="text/javascript" src="lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script src="/js/menu.js"></script>
+<script type="text/javascript">
+    $(function () {
+        let navflag = false;
+        $('.nav-tab').click(function () {
+            $(this).siblings().each(function () {
+                $(this).removeClass('a_active');
+                // $(this).removeClass('a_active');
+                $(this).find('.nav-box').css('height', '0')
+                //关闭右侧箭头
+                if ($(this).attr('class').indexOf('nav-ul') != -1) {
+                    $(this).find('.bx-chevron-right').css('transform', 'rotateZ(0deg)')
+                    $(this).find('.bx-chevron-right').css('transition', 'all .5s')
+                    $(this).removeClass('nav-show')
+                    // $(this).find('div').removeClass('nav-box')
+                }
+            })
+            //当前选中
+            $(this).addClass('a_active')
+            $(this).find('.li-a').addClass('active')
+            // 打开右侧箭头
+            $(this).find('.bx-chevron-right').css('transform', 'rotateZ(90deg)')
+            $(this).find('.bx-chevron-right').css('transition', 'all .5s')
+            $(this).addClass('nav-show')
+            // $(this).find('div').addClass('nav-box')
+        })
+        /* 二级菜单a点击事件 */
+        $(".li-a-a").click(function () {
+            $(".li-a-a").each(function () {
+                $(this).removeClass('active-li-a');
+            })
+            $(this).addClass('active-li-a');
+        })
+
+    })
+</script>
+</body>
 </html>

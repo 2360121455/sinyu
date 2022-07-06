@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/vue.min.js"></script>
+</head>
+<body>
+
+<div class="container" id="app">
+    <br/>
+    <!--<form class="form-inline">-->
+    <button type="button" class="btn btn-primary" @click="handleAdd()">新增地址</button>
+    <button type="button" style="float: right" class="btn c-orange" @click="handleFind()">返回顶级</button>
+    <!--<div class="form-group" style="float: right">
+        <label>搜索</label>
+        <input type="text" class="form-control" v-model="query" @input ="handleSearch"  placeholder="请输节点名称">
+    </div>-->
+    <!--</form>-->
+    <hr/>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>地址名称</th>
+            <th>地址等级</th>
+            <th>所属地址</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(td,index) in tableDatas" :key="index">
+            <td v-text="index+1"></td>
+            <td v-text="td.locationName"></td>
+            <td v-text="td.locationLevel"></td>
+            <td v-text="name"></td>
+            <td>
+                <button v-if="level != '1'" type="button" class="btn btn-success" @click="handleSon(td.locationCode,td.locationLevel,td.locationName)">子地址</button>
+                <button type="button" class="btn btn-default" @click="handleEdit(index,td.locationCode)">编辑</button>
+                <button type="button" class="btn btn-danger" @click="handleDelete(index,td.locationCode)">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--新增弹窗-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="addModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>地址名称</label>
+                            <input type="text" class="form-control" v-model="form.locationName">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" @click="handleAddSubmit">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--编辑弹窗-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>地址名称</label>
+                            <input type="text" class="form-control" v-model="form.locationName">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" @click="handleEditSubmit">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            form: {},
+            tableDatas: [],
+            cloneTableDatas: [],
+            level:null,
+            code:null,
+            name:null,
+            idx: -1,
+            query: "",
+            editLocationCode:""
+        },
+        methods: {
+            //查找
+            handleFind: function () {
+                $.ajax({
+                    url: '/portal/location/findlocations',
+                    success: function (r) {
+                        app.tableDatas = r.data;
+                        app.level = null;
+                        app.code = null;
+                        app.name = null;
+                    }
+                })
+            },
+            //子节点
+            handleSon: function (locationCode,locationLevel,locationName) {
+                    $.ajax({
+                        url: '/portal/location/findson',
+                        type: 'post',
+                        data: {
+                            locationCode: locationCode,
+                            locationLevel: locationLevel,
+                            locationName: locationName
+                        },
+                        success: function (r) {
+                            app.tableDatas = r.data.locationList;
+                            app.level = r.data.locationLevel;
+                            app.code = r.data.locationCode;
+                            app.name = r.data.locationName;
+                        }
+                    })
+            },
+            //新增
+            handleAdd: function () {
+                this.idx = -1;
+                this.form = {};
+                let le;
+                if(app.level === null){
+                    le = 0;
+                }else{
+                    le = parseInt(app.level)+1;
+                }
+                this.form.locationLevel = le;
+                this.form.locationParentName = app.name;
+                $('#addModal').modal('show');
+            },
+            //编辑
+            handleEdit: function (index,locationCode) {
+                this.idx = index;
+                this.form = JSON.parse(JSON.stringify(this.tableDatas))[index];
+                this.editLocationCode = locationCode;
+                $('#editModal').modal('show');
+            },
+            //删除
+            handleDelete: function (index,locationCode) {
+                const r = confirm("确认删除此节点以及子节点?")
+                if (r === true) {
+                    $.ajax({
+                        url: '/portal/location/deletelocation',
+                        type: 'post',
+                        data: {
+                            locationCode : locationCode
+                        }
+                    })
+                    this.tableDatas.splice(index, 1);
+                    return true;
+                }
+                return false;
+            },
+            //新增提交
+            handleAddSubmit: function () {
+                    $.ajax({
+                    url: '/portal/location/addlocation',
+                    type: 'post',
+                    data: {
+                        locationName: this.form.locationName,
+                        parentCode: this.code,
+                        parentLevel: this.level,
+                        parentName: this.name
+                    }
+                })
+                this.tableDatas.push(this.form);
+                $('#addModal').modal('hide');
+            },
+            //修改提交
+            handleEditSubmit: function () {
+                $.ajax({
+                    url: '/portal/location/editlocation',
+                    type: 'post',
+                    data: {
+                        locationName: this.form.locationName,
+                        editCode: this.editLocationCode
+                    }
+                });
+                this.$set(this.tableDatas, this.idx, this.form);
+                $('#editModal').modal('hide');
+            },
+            //查询firstName列
+           /* handleSearch: function (e) {
+                var serchkey = this.query;
+                var searchArray = [];
+                if (serchkey) {
+                    searchArray = this.cloneTableDatas.filter((item) => {
+                        return item.firstName.indexOf(serchkey) > -1
+                    });
+                } else {
+                    searchArray = this.cloneTableDatas;
+                }
+                this.tableDatas = searchArray
+            },*/
+            back: function (){
+                $.ajax({
+                    url: '/portal/menu/findparent',
+                    type: 'post',
+                    data: {
+                        menuLevel: app.tableDatas[0].menuLevel-1
+                    },
+                    success: function (r) {
+                        app.tableDatas = r.data;
+                    }
+                })
+            }
+        },
+        //在实例被创建之后被调用
+        created: function () {
+            // this.cloneTableDatas = JSON.parse(JSON.stringify(this.tableDatas))//克隆
+            this.handleFind();
+        }
+    })
+</script>
+</body>
+</html>

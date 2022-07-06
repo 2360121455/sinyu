@@ -11,7 +11,8 @@
 		<!--<link rel="stylesheet" type="text/css" href="css/page.css" />
 		<link href="plugins/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 		<link href="plugins/css/icons.min.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="css/style.css">-->
+		<link
+		 rel="stylesheet" type="text/css" href="css/style.css">-->
 		<link rel="Bookmark" href="favicon.ico">
 		<link rel="Shortcut Icon" href="favicon.ico" />
 		<!--[if lt IE 9]>
@@ -26,7 +27,8 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<!--[if IE 6]>
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
-<script>DD_belatedPNG.fix('*');</script><![endif]-->
+<script>DD_belatedPNG.fix('*');</script>
+		<![endif]-->
 		<!--/meta 作为公共模版分离出去-->
 
 		<title>能源数据采集与管控平台 - iEms-onLine V3.0</title>
@@ -34,12 +36,15 @@
 	</head>
 
 	<body>
-		<section class="Hui-article-box">
+		<section id="getherApp" class="Hui-article-box">
+			<nav class="breadcrumb">
+				{{getterData.position}}
+			</nav>
 			<div class="Hui-article">
 				<div>
 					<div class="pd-20">
 						<div class="mt-20">
-							<table id="getherApp" class="table table-border table-bordered table-bg table-hover table-sort">
+							<table class="table table-border table-bordered table-bg table-hover table-sort">
 								<caption style="font-size: 20px;">
 									<b>{{getterData.areaName}}电能表电量采集明细表<p style="font-size: 14px; text-align: left;">数据获取时间：{{getterData.getTime}}</p></b>
 								</caption>
@@ -74,20 +79,6 @@
 										<td v-text="gd.currentt"></td>
 										<td v-text="gd.state"></td>
 									</tr>
-									<!--<tr class="text-c va-m">
-										<td>2</td>
-										<td>主变压器#2</td>
-										<td>SN：100002</td>
-										<td>TL646</td>
-										<td>1002</td>
-										<td>一级</td>
-										<td>3435723.8</td>
-										<td>10000</td>
-										<td>10000</td>
-										<td>10000</td>
-										<td>768</td>
-										<td>正常</td>
-									</tr>-->
 								</tbody>
 							</table>
 						</div>
@@ -120,13 +111,15 @@
 				methods: {
 					loadGether: function (){
 						let id = [[${id}]];
-						let name = [[${name}]]
+						let name = [[${name}]];
+						let code = [[${code}]];
 						$.ajax({
 							url: '/portal/pointData/data',
 							type:'post',
 							data:{
-								menuId: id,
-								menuName: name
+								locationCode: id,
+								menuName: name,
+								menuCode: code
 							},
 							success:function (r){
 								getherApp.getterData = r.data;

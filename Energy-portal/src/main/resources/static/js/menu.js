@@ -5,7 +5,8 @@ let menusApp = new Vue({
         ],
         ms:[
         ],
-        area: {}
+        area: {},
+        titleName: ""
     },
     methods: {
         loadMenus: function (menuCode) {
@@ -20,7 +21,7 @@ let menusApp = new Vue({
                 }
             })
         },
-        skip: function (menuCode) {
+        skip: function (menuCode,name) {
             $.ajax({
                 url: '/portal/menu/menusFacility',
                 type:'post',
@@ -29,10 +30,12 @@ let menusApp = new Vue({
                 },
                 success:function (r){
                     menusApp.ms = r.data;
+                    menusApp.titleName = name;
                 }
             })
         }
     },
+    /*页面加载的时候就执行*/
     created: function () {
         this.loadMenus();
     }

@@ -5,8 +5,8 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class PointDataDTO implements Serializable {
-    private String locationCode;
+public class EditNodeDTO implements Serializable {
     private String menuName;
-    private String menuCode;
+    private String editCode;
+    private String path;
 }

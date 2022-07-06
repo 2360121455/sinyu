@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,163 +6,339 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+    <script src="js/vue.min.js"></script>
 </head>
 <body>
 
 <div class="container" id="app">
     <br/>
-    <!--<form class="form-inline">-->
-        <button type="button" class="btn btn-primary" @click="handleAdd">新增</button>
-        <!--<div class="form-group" style="float: right">
-            <label>搜索</label>
-            <input type="text" class="form-control" v-model="query" @input ="handleSearch"  placeholder="请输节点名称">
-        </div>-->
-    <!--</form>-->
+    <button v-if="level != null" type="button" class="btn btn-primary" @click="handleAdd()">新增节点</button>
+    <button type="button" style="float: right" class="btn c-orange" @click="handleFind()">返回顶级</button>
     <hr/>
     <table class="table table-bordered">
         <thead>
-            <tr>
-                <th>序号</th>
-                <th>节点名称</th>
-                <th>父节点</th>
-                <th>节点类型</th>
-                <th>操作</th>
-            </tr>
+        <tr>
+            <th>序号</th>
+            <th>节点名称</th>
+            <th>节点等级</th>
+            <th>父节点</th>
+            <th>节点类型</th>
+            <th>操作</th>
+        </tr>
         </thead>
         <tbody>
-            <tr v-for="(td,index) in tableDatas" :key="index">
-                <td v-text="index+1"></td>
-                <td v-text="td.menuName"></td>
-                <td v-text="td.menuParentName"></td>
-                <td></td>
-                <td>
-                    <button type="button" class="btn btn-success" @click="handleSon(td.menuCode)">子节点</button>
-                    <button type="button" class="btn btn-default" @click="handleEdit(index)">编辑</button>
-                    <button type="button" class="btn btn-danger" @click="handleDelete(index)">删除</button>
-                </td>
-            </tr>
+        <tr v-for="(td,index) in tableDatas" :key="index">
+            <td v-text="index+1"></td>
+            <td v-text="td.menuName"></td>
+            <td v-text="td.menuLevel"></td>
+            <td v-text="name"></td>
+            <td v-text="td.type"></td>
+            <td>
+                <button v-if="level != '3' && td.path == null" type="button" class="btn btn-success"
+                        @click="handleSon(td.menuCode,td.menuLevel,td.menuName)">子节点
+                </button>
+                <button v-if="level != null" type="button" class="btn btn-default"
+                        @click="handleEdit(index,td.menuCode)">编辑
+                </button>
+                <button v-if="level != null" type="button" class="btn btn-danger"
+                        @click="handleDelete(index,td.menuCode)">删除
+                </button>
+            </td>
+        </tr>
         </tbody>
     </table>
 
-    <!--新增编辑弹窗-->
-    <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
+    <!--新增弹窗-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="addModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">信息</h4>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label>First Name</label>
-                            <input type="text" class="form-control" v-model="form.firstName">
+                            <label>节点名称</label>
+                            <input type="text" class="form-control" v-model="form.menuName">
                         </div>
                         <div class="form-group">
-                            <label>Last Name</label>
-                            <input type="text" class="form-control" v-model="form.lastName">
+                            <label>是否末级节点</label>
+                            <div>
+                                <input type="radio" name="end" onclick="yes()">是
+                                <input type="radio" name="end" onclick="no()">否
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" class="form-control" v-model="form.userName">
+                        <div hidden="hidden" id="path" class="form-group">
+                            <label>页面名称</label>
+                            <input type="text" class="form-control" v-model="form.path">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" @click="handleSubmit">提交</button>
+                    <button type="button" class="btn btn-primary" @click="handleAddSubmit">提交</button>
                 </div>
             </div>
         </div>
     </div>
-
-
+    <!--新增弹窗到三级节点的样式-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="addModal1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>节点类型</label>
+                            <select id="type" onchange="oc()" class="form-control" v-model="form.type">
+                                <option>节点</option>
+                                <option>地址</option>
+                            </select>
+                        </div>
+                        <div id="menuname" hidden="hidden" class="form-group">
+                            <label>节点名称</label>
+                            <input type="text" class="form-control" v-model="form.menuName">
+                        </div>
+                        <div id="locationName" hidden="hidden" class="form-group">
+                            <label>地址名称</label>
+                            <!--<input type="text" class="form-control" v-model="form.locationName">-->
+                            <select class="form-control" v-model="form.menuName">
+                                <option v-for="l in locations" v-text="l.locationCode+'-'+l.locationName"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>是否末级节点</label>
+                            <div>
+                                <input type="radio" name="end" onclick="yes()">是
+                                <input type="radio" name="end" onclick="no()">否
+                            </div>
+                        </div>
+                        <div hidden="hidden" id="path1" class="form-group">
+                            <label>页面名称</label>
+                            <input type="text" class="form-control" v-model="form.path">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" @click="handleAddSubmit">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--编辑弹窗-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>节点名称</label>
+                            <input type="text" class="form-control" v-model="form.menuName">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" @click="handleEditSubmit">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
 <script>
+    function oc() {
+        let options = $("#type option:selected");
+        let menuname = document.getElementById("menuname");
+        let locationName = document.getElementById("locationName");
+        if (options.val() === "节点") {
+            locationName.setAttribute("hidden", true);
+            menuname.removeAttribute("hidden");
+        } else {
+            $.ajax({
+                url: '/portal/location/findlocationbycode',
+                type: 'post',
+                data: {
+                    menuParentCode: app.code
+                },
+                success: function (r) {
+                    app.locations = r.data;
+                }
+            });
+            menuname.setAttribute("hidden", true);
+            locationName.removeAttribute("hidden");
+        }
+    };
 
-    var app=new Vue({
-        el:"#app",
-        data:{
+    function yes() {
+        let path = document.getElementById("path");
+        let path1 = document.getElementById("path1");
+        path.removeAttribute("hidden");
+        path1.removeAttribute("hidden");
+    };
+
+    function no() {
+        let path = document.getElementById("path");
+        let path1 = document.getElementById("path1");
+        path.value = '';
+        path1.value = '';
+        path.setAttribute("hidden", true);
+        path1.setAttribute("hidden", true);
+    };
+    var app = new Vue({
+        el: "#app",
+        data: {
+            locations: [],
             form: {},
-            tableDatas:[
-            ],
-			cloneTableDatas:[],
-			idx:-1,
-            query : ""
+            tableDatas: [],
+            cloneTableDatas: [],
+            level: null,
+            code: null,
+            name: null,
+            idx: -1,
+            query: "",
+            editMenuCode: ""
         },
         methods: {
             //查找
-            handleFind: function (){
+            handleFind: function () {
                 $.ajax({
                     url: '/portal/menu/findmenus',
-                    success:function (r){
+                    success: function (r) {
                         app.tableDatas = r.data;
+                        app.level = null;
+                        app.code = null;
+                        app.name = null;
                     }
                 })
             },
             //子节点
-            handleSon: function (menuCode){
-                console.log(menuCode);
-               /* $.ajax({
+            handleSon: function (menuCode, menuLevel, menuName) {
+                $.ajax({
                     url: '/portal/menu/findson',
                     type: 'post',
-                    data:{
-
+                    data: {
+                        menuCode: menuCode,
+                        menuLevel: menuLevel,
+                        menuName: menuName
                     },
-                    success:function (r){
-                        app.tableDatas = r.data;
+                    success: function (r) {
+                        app.tableDatas = r.data.menuList;
+                        app.level = r.data.menuLevel;
+                        app.code = r.data.menuCode;
+                        app.name = r.data.menuName;
                     }
-                })*/
+                })
             },
             //新增
             handleAdd: function () {
-				this.idx = -1;
-				this.form = {}
+                this.idx = -1;
+                this.form = {};
+                let le;
+                if (app.level === null) {
+                    le = 0;
+                } else {
+                    le = parseInt(app.level) + 1;
+                }
+                this.form.menuLevel = le;
+                this.form.menuParentName = app.name;
+                if (le < 2) {
+                    $('#addModal').modal('show');
+                } else {
+                    $('#addModal1').modal('show');
+                }
+            },
+            //编辑
+            handleEdit: function (index, menuCode) {
+                this.idx = index;
+                this.form = JSON.parse(JSON.stringify(this.tableDatas))[index]
+                this.editMenuCode = menuCode;
                 $('#editModal').modal('show');
             },
-			//编辑
-			handleEdit: function (index) {
-				this.idx = index;
-				this.form = JSON.parse(JSON.stringify(this.tableDatas))[index]
-			    $('#editModal').modal('show');
-			},
-			//删除
-			handleDelete: function (index) {
+            //删除
+            handleDelete: function (index, menuCode) {
                 const r = confirm("确认删除此节点以及子节点?")
-                if (r === true){
-                    alert("删除成功！");
+                if (r === true) {
+                    $.ajax({
+                        url: '/portal/menu/deletenode',
+                        type: 'post',
+                        data: {
+                            menuCode: menuCode
+                        },
+                        success: function (r) {
+                            alert(r.message);
+                        }
+                    })
                     this.tableDatas.splice(index, 1);
                     return true;
                 }
                 return false;
-			},
-            //提交
-            handleSubmit:function(){
-				if(this.idx===-1){
-					this.tableDatas.push(this.form);
-				}else{
-					this.$set(this.tableDatas, this.idx, this.form);
-				}
-				this.tableDatas = this.tableDatas
+            },
+            //新增提交
+            handleAddSubmit: function () {
+                $.ajax({
+                    url: '/portal/menu/addnode',
+                    type: 'post',
+                    data: {
+                        menuName: this.form.menuName,
+                        path: this.form.path,
+                        type: this.form.type,
+                        parentCode: this.code,
+                        parentLevel: this.level,
+                        parentName: this.name
+                    },
+                    success: function (r) {
+                    }
+                });
+                let mn = this.form.menuName;
+                let index = mn.indexOf("-");
+                let result = mn.substr(index + 1, mn.length);
+                this.form.menuName = result;
+                menuname.setAttribute("hidden", true);
+                locationName.setAttribute("hidden", true);
+                this.tableDatas.push(this.form);
+                $('#addModal').modal('hide');
+                $('#addModal1').modal('hide');
+            },
+            //修改提交
+            handleEditSubmit: function () {
+                $.ajax({
+                    url: '/portal/menu/editnode',
+                    type: 'post',
+                    data: {
+                        menuName: this.form.menuName,
+                        editCode: this.editMenuCode
+                        //path: this.form.path
+                    },
+                    success: function (r) {
+                    }
+                });
+                this.$set(this.tableDatas, this.idx, this.form);
                 $('#editModal').modal('hide');
             },
-            //查询firstName列
-            handleSearch:function (e) {
-                var serchkey=this.query;
-				var searchArray=[];
-                if(serchkey){
-					searchArray = this.cloneTableDatas.filter((item)=>{
-						return item.firstName.indexOf(serchkey) > -1
-					});
-                }else{
-					searchArray = this.cloneTableDatas;
-                }
-				this.tableDatas = searchArray
+            back: function () {
+                $.ajax({
+                    url: '/portal/menu/findparent',
+                    type: 'post',
+                    data: {
+                        menuLevel: app.tableDatas[0].menuLevel - 1
+                    },
+                    success: function (r) {
+                        app.tableDatas = r.data;
+                    }
+                })
             }
-
         },
         //在实例被创建之后被调用
         created: function () {
@@ -171,9 +346,6 @@
             this.handleFind();
         }
     })
-
-
 </script>
-
 </body>
 </html>

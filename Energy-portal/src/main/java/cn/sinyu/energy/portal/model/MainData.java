@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -54,8 +53,11 @@ public class MainData implements Serializable {
     @TableField("date")
     private String date;
 
-    @TableField("menu_id")
-    private Integer menuId;
+    @TableField("type")
+    private String type;
+
+    @TableField("location_code")
+    private Integer locationCode;
 
 
 }

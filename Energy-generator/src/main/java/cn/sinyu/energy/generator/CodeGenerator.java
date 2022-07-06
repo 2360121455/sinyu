@@ -66,7 +66,6 @@ public class CodeGenerator {
     public static void main(String[] args) {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
-
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
@@ -80,7 +79,6 @@ public class CodeGenerator {
         //设置mapper.xml的resultMap
         gc.setBaseResultMap(true);
         mpg.setGlobalConfig(gc);
-
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl(url);
@@ -89,7 +87,6 @@ public class CodeGenerator {
         dsc.setUsername(username);
         dsc.setPassword(password);
         mpg.setDataSource(dsc);
-
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setEntity("model");
@@ -97,7 +94,6 @@ public class CodeGenerator {
         pc.setModuleName(modelName);
         pc.setParent(parentPackage);
         mpg.setPackageInfo(pc);
-
         // 自定义配置
         InjectionConfig cfg = new InjectionConfig() {
             @Override
@@ -118,7 +114,6 @@ public class CodeGenerator {
         mpg.setCfg(cfg);
         mpg.setTemplate(new TemplateConfig().setXml(null));
         mpg.setTemplate(new TemplateConfig().setMapper(mapperTempalte));
-
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
@@ -141,10 +136,8 @@ public class CodeGenerator {
         strategy.setTablePrefix(pc.getModuleName() + "_");
         strategy.setRestControllerStyle(true);
         mpg.setStrategy(strategy);
-
         // 选择 freemarker 引擎需要指定如下加，注意 pom 依赖必须有！
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
     }
-
 }

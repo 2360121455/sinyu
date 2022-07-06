@@ -81,7 +81,11 @@ public class UserlistServiceImpl extends ServiceImpl<UserlistMapper, Userlist> i
         }
     }
 
-
+    /**
+     * 给security框架查询
+     * @param account 账号
+     * @return
+     */
     @Override
     public UserLoginVO Login(String account){
         return ulmapper.findVOByAccount(account);
